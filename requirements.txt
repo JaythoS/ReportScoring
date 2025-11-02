@@ -1,0 +1,15 @@
+# Ana UI framework
+streamlit==1.39.0
+
+# PDF görüntüleyici (pdf.js tabanlı)
+streamlit-pdf-viewer==0.0.15
+
+# Veri & tablo işlemleri
+pandas==2.2.3
+numpy==1.26.4
+
+# Doküman işleme
+python-docx==1.1.2
+
+# PDF işlemleri (ileride highlight için)
+pypdfium2==4.30.0

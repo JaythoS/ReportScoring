@@ -1,0 +1,14 @@
+# LLM Pipeline için gerekli paketler
+google-generativeai>=0.3.0
+
+# PDF/DOCX okuma için
+pdfplumber>=0.10.0
+# Alternatif: PyPDF2>=3.0.0
+python-docx>=1.0.0
+
+# Test için
+pytest>=7.0.0
+
+# Opsiyonel: .env dosyası desteği için
+python-dotenv>=1.0.0
+

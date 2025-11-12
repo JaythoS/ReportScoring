@@ -1146,7 +1146,7 @@ if __name__ == "__main__":
     import sys
     import os
     sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../..'))
-    from llm.tools.pdf_extractor import extract_text
+    from core.extraction import extract_text_from_pdf as extract_text
     
     if len(sys.argv) > 1:
         json_file = Path(sys.argv[1])

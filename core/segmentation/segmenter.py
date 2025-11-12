@@ -10,7 +10,12 @@ import re
 from pathlib import Path
 from datetime import datetime
 import google.generativeai as genai
-from .gemini_segment import load_prompt, _extract_text, _repair_json, MODEL_NAME
+# Eski import'ları llm/tools'tan al (backward compatibility)
+import sys
+from pathlib import Path
+project_root = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(project_root))
+from llm.tools.gemini_segment import load_prompt, _extract_text, _repair_json, MODEL_NAME
 
 # Chunking parametreleri
 MAX_CHUNK_SIZE = 15000  # karakter
@@ -367,7 +372,7 @@ def segment_text_chunked(text: str, api_key: str = None) -> str:
     
     if len(chunks) == 1:
         # Tek chunk, normal segmentasyon
-        from .gemini_segment import segment_text
+        from llm.tools.gemini_segment import segment_text
         return segment_text(text, api_key=api_key)
     
     print(f"📦 Metin {len(chunks)} chunk'a bölündü (her chunk ~{MAX_CHUNK_SIZE:,} karakter)")

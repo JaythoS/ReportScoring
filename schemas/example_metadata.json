@@ -1,0 +1,122 @@
+{
+  "report_id": "report_001",
+  "filename": "report_001.pdf",
+  "timestamp": "2024-11-08T10:30:00Z",
+  "version": "v1",
+  "scores": {
+    "total": 85.5,
+    "sections": {
+      "executive_summary": 8.5,
+      "company_sector": 8.0,
+      "professional_ethical": 8.2,
+      "activity_analysis": 8.8,
+      "conclusion": 7.5,
+      "impact": 8.0,
+      "team_work": 7.8,
+      "self_directed_learning": 8.3,
+      "format_organisation": 9.0
+    }
+  },
+  "criteria": {
+    "executive_summary": {
+      "score": 8.5,
+      "evidence": "Executive Summary section clearly states the internship objectives and key activities. The engineering activities are well described.",
+      "suggestions": [
+        "Add more specific outcomes and benefits learned",
+        "Include quantitative metrics if available"
+      ],
+      "weight": 6
+    },
+    "company_sector": {
+      "score": 8.0,
+      "evidence": "Company overview is comprehensive, including name, address, sector, and organizational structure. Production/service system is well explained.",
+      "suggestions": [
+        "Add more details about company history",
+        "Include organizational chart if available"
+      ],
+      "weight": 8
+    },
+    "professional_ethical": {
+      "score": 8.2,
+      "evidence": "Professional and ethical responsibilities are discussed with relevant examples from the internship experience.",
+      "suggestions": [
+        "Provide more specific examples of ethical dilemmas encountered",
+        "Discuss industry-specific ethical standards"
+      ],
+      "weight": 8
+    },
+    "activity_analysis": {
+      "score": 8.8,
+      "evidence": "Activity Analysis section is comprehensive with clear explanation of IE activities, scientific problem detection, and proposed improvements. Project section includes numerical performance metrics.",
+      "suggestions": [
+        "Add more detailed problem analysis",
+        "Include before/after comparisons with metrics"
+      ],
+      "weight": 40
+    },
+    "conclusion": {
+      "score": 7.5,
+      "evidence": "Conclusion section summarizes the internship experience and evaluates activities. Current state and challenges are discussed.",
+      "suggestions": [
+        "Add more discussion on future changes with emerging technologies",
+        "Include lessons learned section"
+      ],
+      "weight": 6
+    },
+    "impact": {
+      "score": 8.0,
+      "evidence": "Impact section discusses global, economic, environmental, and societal contributions of the engineering activities.",
+      "suggestions": [
+        "Add more specific examples of impact",
+        "Quantify environmental or economic impacts if possible"
+      ],
+      "weight": 8
+    },
+    "team_work": {
+      "score": 7.8,
+      "evidence": "Team Work section describes collaboration with team members and communication methods.",
+      "suggestions": [
+        "Add more details about team structure and roles",
+        "Include specific examples of collaborative projects"
+      ],
+      "weight": 6
+    },
+    "self_directed_learning": {
+      "score": 8.3,
+      "evidence": "Self-directed Learning section identifies new skills needed and describes the learning process.",
+      "suggestions": [
+        "Add more details about learning resources used",
+        "Include examples of applied learning"
+      ],
+      "weight": 8
+    },
+    "format_organisation": {
+      "score": 9.0,
+      "evidence": "Report is well-formatted with cover, table of contents, and references. Organization is clear and professional.",
+      "suggestions": [
+        "Check for consistent formatting throughout",
+        "Ensure all figures and tables are properly labeled"
+      ],
+      "weight": 10
+    }
+  },
+  "file_paths": {
+    "raw_file": "data/raw/report_001.pdf",
+    "text_file": "data/processed/texts/report_001.txt",
+    "segmentation_file": "data/processed/segmentations/report_001_segmentation.json",
+    "metadata_file": "data/processed/metadata/report_001_metadata.json"
+  },
+  "processing_info": {
+    "extraction_timestamp": "2024-11-08T10:00:00Z",
+    "segmentation_timestamp": "2024-11-08T10:15:00Z",
+    "scoring_timestamp": "2024-11-08T10:30:00Z",
+    "extraction_method": "pdfplumber",
+    "segmentation_method": "gemini-2.0-flash",
+    "scoring_method": "llm-based"
+  },
+  "file_hash": "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
+  "text_hash": "b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef1234567890",
+  "dataset_split": "train",
+  "notes": "High quality report with comprehensive activity analysis. Minor improvements needed in conclusion section."
+}
+

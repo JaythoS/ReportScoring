@@ -1,0 +1,621 @@
+Computer Engineering Practice (COMP200)
+Summer Practice Report
+Helin Dinçel
+042101121
+10.06.2025 - 07.07.2025, 20 Day
+Submitted:
+MEF University
+_________________
+Computer Engineering Program
+1
+
+Executive Summary
+Core4Basis Technology and Consulting Services is a consulting boutique SAP Basis
+specialty firm. The company provides SAP system installation, upgrade, performance
+optimization, security, backup, and cloud integration services. Its main goal is to assume
+responsibility for customers' key infrastructures with best-in-class performance and
+reliability.
+During my internship, I was a very active member of the daily business processes of
+the SAP Basis team. I learned checking the systems with the help of SAP GUI, preparing daily
+and weekly reports, and performing backup controls and dump analyses. I also performed
+user and authorization procedures. Besides that, I prepared weekly system status reports for
+different clients, which included reading system logs, RFC connections, disk space usage,
+memory space usage, and other important parameters.
+A significant amount of my internship was devoted to being involved in the SAP
+HANA patching process. Under the guidance of my supervisor, I performed full system
+backups, downloaded the relevant .SAR files from SAP Support Portal, and uploaded them to
+the respective directories. I powered down the system safely via SAP MMC and initiated the
+update process through the hdblcm tool. I learned that careful planning, backup, and check
+steps are so critical in system updates.
+Moreover, I was taught SAP service management on the SUSE Linux and Windows
+Server platforms by my supervisor. I learned to use terminal commands (df -h, top, ps -ef,
+startsap, stopsap) and to work with directories. On the Windows platform, I was trained to
+start and stop instances using SAP Management Console (SAP MMC) and to effectively
+manage services.
+Before the internship, my main goal was to learn more about SAP Basis
+infrastructure and become familiar with the actual systems. This internship exceeded my
+expectation. I learned the importance of regular system checks, proper documentation, and
+collaboration in SAP system maintenance. In addition, I obtained experience which SAP Basis
+requires as much technical knowledge as taking a high level of responsibility. This internship
+assisted me in achieving technical skills and professional working ethics.
+2
+
+Contents
+Executive Summary ................................................................................... 2
+Contents . ................................................................................................... 3
+1. Company and Sector ........................................................................... 4
+a. Overview of the Company and Sector . ............................................ 4
+b. Organization of the Company .......................................................... 4
+c. Production/Service System .............................................................. 5
+d. Professional and Ethical Responsibilities of Engineers . ................... 6
+2. Summer Practice Description .............................................................. 7
+3. Conclusions ......................................................................................... 7
+a. Impact .............................................................................................. 8
+b. Team Work . .................................................................................... 10
+c. Self-directed Learning . ................................................................... 11
+References . .............................................................................................. 12
+4. Daily Activities . ............................................................................... 13-32
+3
+
+1. Company and Sector
+a) Overview of the Company and Sector
+Company Name: Core4Basis Teknoloji ve Danışmanlık Hizmetleri
+Address: Nida Kule Batı Plaza, Barbaros Mah. Begonya Sok. No:1 Ataşehir/İstanbul
+Website: https://www.core4basis.com
+E-mail: info@core4basis.com
+Phone: +90 532 382 10 26
+Ownership Type: Private Company
+Number of Employees: Confidential (Core team consists of certified SAP Basis consultants)
+Sector: Information Technologies – SAP Technology Consulting
+- Brief History:
+My supervisor demonstrated to me how to create a new user in the SAP system
+using the SAP GUI. I was demonstrated how to open the user screen and how to fill in details
+like name, department, phone number, and email. I was also demonstrated how to assign
+roles and profiles so that the user will be able to access the relevant areas. I learned through
+this training about the basics of user management and how to effectively create users in SAP.
+b) Organization of the Company
+Core4Basis is a lean and professional organizational structure perfectly designed for
+SAP Basis consulting. Core4Basis consists of several technical and operational departments
+specialized in each one of the main areas of SAP infrastructure and support.
+- Main Departments and Responsibilities:
+1. SAP Basis Consulting Team: Responsible for SAP system installations, upgrades,
+performance optimization, system monitoring, and database management. This is
+the department where I completed my internship.
+2. Security and Authorization Team: Manages user accounts, critical authorizations
+(e.g., SAP_ALL & SAP_NEW), and access control. It also prepares reports for audits
+and internal reviews.
+3. Support Services Team (Help Desk): Provides 24/7 support under SLA to resolve
+urgent issues and ensure system continuity.
+4. Project and Documentation Team: Prepares project documents for ongoing projects,
+client orders, and technical reports.
+4
+
+5. Sales and Business Development: Handles client communications, product/service
+proposals, and solution demos.
+6. Training and Knowledge Transfer: Offers training sessions and guides for customers
+to use SAP modules efficiently.
+- Organizational Hierarchy:
+The structure is relatively flat. Each team reports to a team leader or supervisor,
+while key decisions are taken by the core certified consultants who also act as company
+partners. Interns work under the supervision of SAP consultants and are integrated into daily
+support or documentation tasks.
+c) Production/Service System
+Core4Basis is an Information Technologies industry company that provides SAP Basis
+solutions. It does not handle physical products but provides system-based and consultative
+services that are central to the digital backbone of its clients.
+Core4Basis’s service system can be divided into several core processes:
+1. SAP System Installation and Configuration :
+Core4Basis configures SAP systems for clients from the ground up, including database/OS
+configuration, installation of the SAP kernel, and post-installation optimization. This makes
+the client's infrastructure SAP-ready.
+2. System Monitoring and Maintenance :
+System checks are regularly done to ensure uptime and performance. Basis consultants
+check transaction loads, memory usage, disk space, and background jobs using SAP Solution
+Manager and internal monitoring dashboards.
+3. Performance Optimization :
+The team analyzes performance bottlenecks and makes system-level improvements. This
+includes database tuning, memory allocation adjustments, and SAP parameter optimization.
+4. Security Management :
+Core4Basis implements security measures such as user role design, authorization concepts,
+and access logging. Special attention is given to critical authorizations like SAP_ALL and
+SAP_NEW to prevent unauthorized activities.
+5. Backup and Disaster Recovery :
+Data security is ensured by the company through backed-up documented backup strategies
+and disaster recovery settings. System restorability is validated through periodic simulations.
+5
+
+6. Cloud Integration and Hybrid Environments :
+With the growing need for cloud-based infrastructures, Core4Basis helps clients migrate SAP
+systems to platforms like AWS, Azure, and GCP. Hybrid models are also supported.
+7. Documentation and Reporting :
+All project steps, changes, and configurations are documented in internal or client-facing
+documents. This ensures transparency and accountability in operations.
+8. Support Services :
+There is a 24/7 support team dedicated to Service Level Agreements (SLA) that deal with
+troubles, track incident tickets, and quickly resolve system disruptions.
+During my internship period, I actively engaged in system monitoring, weekly
+reporting, and knowledge of the basic principles of SAP environment management. I had the
+opportunity to learn how ERP systems at a large scale are serviced and maintained in a live
+environment.
+d) Professional and Ethical Responsibilities of Engineers
+- Professional Responsibilities
+Core4Basis engineers are required to deliver services accurately, dependably, and
+responsibly. Every action of theirs, such as system alteration, role assignments, or
+communication with clients, has a direct impact on mission-critical environments. They
+therefore need to:
+● Maintain high availability and stability of SAP systems
+● Document every change and configuration accurately
+● Update their knowledge and certifications periodically
+● Maintain best practices and SAP guidelines
+● Work collaboratively and communicate effectively with team members and
+customers
+- Ethical Responsibilities
+The company has a strong ethical policy, though not in the form of a published public
+"code of ethics." As day-to-day business, engineers at Core4Basis work under the following
+ethical principles:
+● Confidentiality :Engineers must protect all client data and system passwords from
+unauthorized access or disclosure.
+6
+
+● Integrity : No short cuts or hidden changes. It all must be open and audit-able.
+● Responsibility : Mistakes or risks are communicated in a timely manner, and
+engineers take full ownership of their work.
+● Respect and Fairness : Internal communication is with respect. Customers are
+treated as equals regardless of company size or contract.
+● Compliance : Engineers ensure that their actions are aligned with local law and
+international standards (e.g., GDPR for data protection).
+As an intern, I closely observed how these values are integrated in everyday work.
+Engineers ensured that they always prioritized system safety, documentation, and ethical
+behavior. I gained the knowledge that professional engineering not only involves technical
+problem-solving but also about behaving responsibly, honestly, and with respect.
+2. Summer Practice Description
+During my internship at Core4Basis Technology and Consulting Services, I was part of
+the SAP Basis team and supported various enterprise system administration-related
+activities. Generating daily and weekly system status reports for various client companies
+was my key responsibility. For report generation, I used SAP GUI and SAP FIORI Cockpit to
+check system logs, backup statuses, performance statistics, and RFC connections.
+I also worked through audit and log reporting procedures, whereby I pulled user
+activity data from SAP transactions and logged it for compliance. I also had hands-on
+experience in creating users and assigning roles with SAP GUI.
+One of the biggest parts of my internship was assisting in the SAP HANA patch
+update process. I was involved in performing database backups, downloading and copying
+update packages, shutting down the system, and initiating the update with SAP MMC and
+the hdblcm utility.
+Besides, I have received initial training for OS-level SAP administration for SUSE Linux
+and Windows Server. This included learning commonly used commands, SAP directory
+structure familiarization, and observing the operation of starting and stopping SAP services
+at the OS level.
+Through completing these projects, I learned the routine work of an SAP Basis
+consulting firm and had first-hand experience with the tools and methodologies used in
+real-world enterprise environments.
+7
+
+3. Conclusions
+During the course of my internship, I was involved in various activities as a member
+of the SAP Basis team, e.g., reporting on the systems every day and every week, check on
+dumps and backups, user creation and authorization processes. I was also actively involved
+in the SAP HANA patch process, where I was taking system backups, downloading the
+required files, shutting down the system, and executing the update using the hdblcm tool. In
+addition, I was also trained on the control of SAP services at the operating system level in
+SUSE Linux and Windows Server.
+By performing these activities, I understood fundamental SAP Basis functionality and
+appreciated the importance of regular system scans and documentation to ensure system
+security. I refined my reporting skills by practicing using SAP GUI and SAP FIORI Cockpit, and
+became skilled in log analysis and user management. MMC and hdblcm also taught me the
+need to be careful while performing operations on live systems.
+I acquired the significance of ethics, accountability, and communication in a work
+organization environment while serving in a small capable team. The organizational
+framework employed was systematic, transparent, and open to information exchange, hence
+leading to the simplification of my learning.
+The industry has the significant role of managing ERP infrastructure of business
+enterprises. Cloud (AWS, Azure, GCP) and hybrid solutions are becoming more common.
+System security, data privacy, and system optimization are becoming more critical on the
+opposite side. The largest challenge for the industry is keeping up with technologies that are
+constantly evolving while keeping the availability of the system high.
+Over the next 5–10 years, SAP Basis processes will be dramatically changed by
+developments in artificial intelligence, big data analytics, cloud technology, and the Internet
+of Things (IoT). Automated monitoring tools, machine learning–driven performance
+improvement, and cloud SAP solutions will become mainstream. SAP Basis engineers will
+therefore have to keep learning and adjusting to emerging technologies.
+8
+
+A ) Impact
+My internship experience at Core4Basis gave me valuable insights into how SAP Basis
+solutions could contribute significantly to global, economic, environmental, and societal
+contributions. SAP systems constitute a significant component of digital infrastructure of
+companies around the world. They are used in managing the core business processes like
+finance, logistics, manufacturing, and human resources. The work I performed and
+observed—e.g., daily system monitoring, backup management, log scanning, and software
+patching—are technical and plain-looking tasks, but ones with extremely important
+consequences when viewed as part of a bigger picture.
+- Global Impact:
+SAP Basis solutions enable companies with a global presence to function flawlessly
+worldwide. Stable ERP systems ensure that supply chains, financial transactions, and data
+exchange across geographical regions occur without disruption. If an ERP system of massive
+scale fails, the consequence will be felt across the globe, resulting in delays in production,
+shipping, or financial processes in various markets. The efforts of SAP Basis engineers,
+including routine monitoring and patching, deliberately prevent such interference and
+enable business continuity globally. Such reliability is required in today's globalized world
+economy in businesses that manage cross-border businesses and trade.
+- Economic Impact :
+ERP systems have a direct effect on the economic efficiency and competitiveness of
+organizations. System downtime will lead to colossal financial loss, production delays, and
+even damage to reputation. SAP Basis engineers minimize the risk of operation by
+conducting operations such as system checks, database backups, and software updates in
+time. This enhances productivity, saves costs, and gives companies the potential to make
+informed data-based decisions. The reports that we have prepared during our internship
+assisted in decision-making by providing real system health and performance data. Marginal
+improvements in system efficiency in large business organizations make a huge difference in
+cost and enhanced resource utilization, which in the end contributes to economic growth.
+- Environmental Impact:
+SAP systems also help promote environmentally friendly business practices. ERP systems
+integrated give companies the capacity to plan their logistics, production, and resource
+planning in a more efficient manner that can reduce energy usage and waste. Cloud-based
+SAP solutions, which are popular with companies, reduce energy usage through aggregated
+infrastructure and shared resources. Through activities such as HANA patching and system
+tuning, I acquired knowledge on how updates and performance improvements maintain
+systems with less usage but are yet more efficient, indirectly reducing the environmental
+footprint of IT operations.
+9
+
+- Societal Impact:
+Error-free ERP systems guarantee that societal well-being is facilitated by industries providing
+basic services. Fields such as healthcare, banking, transportation, and government
+administration rely on secure and stable systems in order to offer services to millions of
+people. SAP Basis engineers are tasked with ensuring that the systems operate without
+interruption. Beyond this, security of data and confidentiality—a key part of SAP Basis—is a
+major social matter nowadays in the digital age. Through performing user management,
+authorization, and audit reporting operations, I understood how the engineers protect
+sensitive data and maintain legal and ethical compliance.
+In short, the engineering activities that I observed throughout my internship—system
+monitoring, backup administration, log analysis, and patching—are technical in nature. They
+have extensive impacts on global trade, economic efficiency, environmental sustainability,
+and public trust in computer systems. With new technologies such as artificial intelligence,
+big data analysis, and cloud computing defining the future, SAP Basis engineers will be asked
+to implement these solutions even more responsibly. My internship experience showed that
+all stable ERP systems have engineers behind them to make sure that companies can operate
+securely, efficiently, and sustainably across the globe.
+B ) Team Work
+At Core4Basis, I was exposed and involved in a very collaborative team environment.
+My senior SAP Basis engineers acted as my mentors, closely monitoring me, explaining
+technical processes and reviewing my work when necessary. Senior SAP Basis consultants
+with a background in computer engineering and information systems were responsible for
+operating client systems, performing updates, and addressing technical issues.
+My role in the team was to support them by giving them daily and weekly reports,
+helping in HANA patch-related tasks, and learning basic OS-level administrative skills.
+Meanwhile, while I assisted with easy tasks, the consultants were engaged in more complex
+configurations, client conversations, and resolving issues.
+We were in constant communication using Microsoft Teams, sharing work progress,
+troubleshooting system problems, and planning patch schedules. Inside the office too, we
+had short discussions to make quick decisions as a group. Our team was well-organized with
+clear job assignments for each member and a supervisor managing the general workflow.
+The organization and performance of the team were greatly effective. Each person
+knew their role, supported each other, and collaborated to achieve common goals. This
+environment showed me the importance of interdependence, communication, and task
+distribution in technical projects. It also showed me the importance of having a positive
+attitude towards teamwork, showing that fruitfully cooperating teams can learn from each
+other.
+10
+
+C) Self-directed Learning
+While interning at Core4Basis, I realized that lifelong and autonomous learning is the
+principle to professional growth in information technology. SAP Basis administration requires
+continuous learning because enterprise systems, cloud computing, and security controls
+keep evolving. Through my internship, I had experience in taking the initiative, independent
+learning on a topic, and learning from beyond the given tasks.
+I also identified other areas of professional practice knowledge. The areas are a more
+thorough examination of SAP HANA architecture, Linux operating system management, and
+advanced database backup and recovery strategies. I further emphasized the acquisition of
+these soft skills: proper documentation, efficient communication, and time management
+when working in a team.
+Along with the support activities like the SAP HANA patching process, supplementary
+information was needed to understand how to do the steps in backups, file management
+updates, and shutdown and startup of the system.I learned this from official SAP documents
+on the SAP Support Portal, technical manuals on the SAP Help portal, and the corresponding
+training videos and discussion forums. My manager advised me to dig into these sources,
+which allowed me not only to learn what to do, but why one had to do it.
+Throughout the internship period, I had the practice of putting down notes on all the
+work that I executed, the commands utilized by us in Linux, SAP transactions utilized during
+some activities, and the overall process for system monitoring as well as patching. Having
+such a record kept helped me recollect what I had studied and also acted as a personal
+reference for future utilization.
+This experience helped me build my independent learning skills, technical research
+problems, and adapting to new things. It further revealed to me that in the world of IT,
+experts have to refresh their knowledge continually, in order to keep up with emerging
+technologies such as cloud computing, artificial intelligence, and cybersecurity software. My
+internship made me urge to continue to learn, a skill essential to stay in the line of work as
+an engineer.
+11
+
+References
+● ali@aaktas.com (2020). Core4Basis . [online] Core4basis.com. Available at:
+https://core4basis.com/ [Accessed 28 Jul. 2025].
+● Sap.com. (2019). SAP Support Portal Home . [online] Available at:
+https://support.sap.com/en/index.html .
+12
+
+4. Daily Activities
+● Day 1 , 10.06.2025 - Installation and download
+I met my supervisors and my teammates at the office and we talked about SAP Basis
+Principles.
+Firstly, I installed Microsoft Office 365 Programs, with all the meetings and
+documents around here.
+After that I received S-User ID and Password for SAP Me SubPortal from my
+supervisor and I logged into the system.
+Figure 1 : Me SAP Portal
+Afterall i installed FortiClient VPN to access the customer's system.
+At the beginning I had a problem which was about Name access requirements. I was trying
+on the FortiClient 7.4 version on my Mac computer but Name was required so I checked
+FortiClient Support. Probably my pc didn't support the 7.4 version and I installed the 7.2
+version again.
+Figure 2 : FortiClient VPN
+13
+
+Than, I should have downloaded SAP GUI, and i installed JAVA 8 SE because SAP
+GUI7.50rev1 only accessible at JAVA8. After, I had a problem that the GUI didn't reach my
+Java and I googled it. My problem was solved by downloading the SAP GUI 7.70 version.
+Figure 3 : SAP GUI for Java Installation
+Figure 4 : Terminal Screen with Java Version
+Figure 5 : SAP GUI
+Date Supervisor’s Name Signature
+14
+
+● Day 2 , 11.06.2025 - SAP Structures and SAP GUI
+I learned about the three-tier architecture of the SAP system: Presentation Layer,
+Application Layer, and Database Layer. The users access the system through SAP GUI, which is
+communicated with one or more application servers using a message server. The application
+servers, in return, communicate with the database layer.I also checked SAP GUI logon pad,
+where different system entries (clients) are saved. I saw that each entry has a system ID,
+instance, and connection.
+Figure 5 : SAP System Architecture (Three-Tier Structure)
+Figure 6 : HANA Database Access via Command Line
+Figure 7: SAP GUI Logon Pad with System Entries
+Date Supervisor’s Name Signature
+15
+
+● Day 3 , 12.06.2025 - Weekly Periodic Analysis Reporting Description
+I reviewed the weekly periodic analysis report used in the SAP system. The report
+included technical checks such as weekly backup control, performance monitoring, dump
+analysis, system logs, and disk usage. I observed how data was entered on a daily basis into
+the Excel table and how detailed checks were organized under specific tabs (e.g., Backup
+Overview, Database Disk). The data was retrieved from the SAP system using SAP GUI. By
+reading this report, I learned how SAP works day to day.
+Figure 8 : Periodic Analysis Reporting
+Figure 9 : Large Tables for Periodic Analysis Reporting
+Date Supervisor’s Name Signature
+16
+
+● Day 4 , 13.06.2025 - Audit Reporting Description
+I worked with an Excel worksheet for tracking audit and authorization requests in the
+SAP system. It addressed key control points such as active user and deleted user lists, admin
+authorizations (SAP_ALL & SAP_NEW), critical authorizations, system parameters
+(RSPARAM), and profile monitoring. Each request was included along with the corresponding
+SAP report name and its status, overwhelmingly set to "Requested," with comments
+referencing other sheets. I learned that information was extracted via SAP GUI and logged on
+Excel for the purpose of supporting audit and access control processes.
+Figure 10 : Audit Report Requests and User Information System
+Figure 11 : Display View of Client Settings
+Date Supervisor’s Name Signature
+17
+
+● Day 5 , 16.06.2025 - Individual Weekly Reporting Trying
+I was given the responsibility of preparing the company's weekly reports under the
+supervision of IÇ, and OT. I logged into the SAP system as a host user on my own, extracted
+necessary data, and pasted it into Excel templates.
+This exercise involved monitoring system activity and extracting critical data that was
+required by the company. It helped me improve my SAP navigation, management of data,
+and precision of reports.
+Figure 12 : Weekly Activity Planning and Reporting Table
+Figure 13 : SAP GUI Interface Displaying System Log Data for Weekly Reporting
+Date Supervisor’s Name Signature
+18
+
+● Day 6 , 17.06.2025 - User Creation Training in SAP GUI
+I was taught by my supervisor how to add a new user into the SAP system using the
+SAP GUI. I learned how to go to the user screen and enter details like name, department,
+phone, and email. My supervisor also taught me how to assign roles and profiles such that
+the user can access the right areas. From this training, I was able to understand the basics of
+managing users and adding users in SAP correctly.
+Figure 14 : SAP GUI User Creation Screen – Personal and Company Information Entry
+Figure 15 : SAP GUI User Role and Profile Assignment Panel
+Date Supervisor’s Name Signature
+19
+
+● Day 7 , 18.06.2025 - Meeting About Daily SAP Reports
+On this day, we had an online meeting with our supervisor to learn how to prepare
+daily SAP system reports. During the meeting, our supervisor explained how to fill in the
+daily control report and what each item means. He showed us how to check backups, dump
+analysis, RFC connections (both inbound and outbound), database usage, and instance
+status. We also learned how to write down problems if something is not working correctly.
+This meeting helped me understand how to follow the daily reporting process and how to
+use the SAP system more effectively.
+Figure 16 : Online Meeting Explaining SAP Daily Report Template via SAP GUI
+Figure 17 :SAP FIORI Cockpit – System Monitoring Dashboard Showing CPU, Memory, and
+Instance Performance Metrics
+Date Supervisor’s Name Signature
+20
+
+● Day 8 , 19.06.2025 - Day 9 , 20.06.2025 - Preparing Daily SAP System Reports
+(Individual)
+After the training meeting, I spent these two days preparing actual daily SAP system
+control reports. I followed the template shown by my supervisor and used SAP GUI to check
+system information. Each day, I checked important items like backup status, dump analysis,
+RFC connections, database usage, and instance performance. I entered the results into the
+Excel report, just as we practiced. Sometimes, I also connected to the SAP Cockpit to confirm
+system health and get more detailed data. I carefully followed the instructions to avoid any
+mistakes and to make sure the reports were complete. This helped me practice what I
+learned in the meeting and gain more confidence using SAP tools.
+Figure 18 : SAP Daily System Report
+Figure 19 : Saved Daily Excel Reports (DEP) Showing Dates and File Versions for 18–20 June
+2025
+Date Supervisor’s Name Signature
+21
+
+● Day 10 , 23.06.2025 - Weekly (Every Monday) System Status Check – 5
+Companies
+I reviewed and compiled weekly (every Monday) system status reports for five
+different companies. This included checking server logs, system availability, backup statuses,
+and any service alerts. Each company’s infrastructure was analyzed separately, and findings
+were documented for weekly monitoring purposes.
+Figure 20 : Weekly System Status Excel Report for SAP ERP – Multi-Company Monitoring
+Figure 21 : Saved Weekly Reports for 5 Different Companies with Timestamped Filenames like
+this Checklist
+Date Supervisor’s Name Signature
+22
+
+● Day 11 , 24.06.2025 - Day 12 , 25.06.2025 - Server Check for Two Companies
+On these two days, I worked on checking the servers of two different companies.
+- I looked at each server’s IP address, hostname, and operating system in the Excel file.
+- Then, I used a remote terminal (like RDP or SSH) to connect to each server one by one
+- I checked if I could log in using the username and password.
+- If I could not log in, I wrote down the problem (for example: server is off, wrong password,
+connection error).
+-I also checked the SAP service accounts and other information to make sure everything is
+correct.
+-I marked the results in the Excel file using colors (green for OK, red for problems).
+This task helped keep the company’s server list up to date and made sure all systems
+were checked.
+Figure 22 : Server Status Control Excel - Access Check and Verification Results
+Date Supervisor’s Name Signature
+23
+
+● Day 13 , 26.06.2025 - Day 14 , 27.06.2025 - SAP Log & Audit Report
+Analysis for Legal Request
+On this days, I was responsible for analyzing SAP user activity logs in response to a
+legal investigation request. A client had filed a lawsuit claiming they worked overtime beyond
+regular hours, and our company was asked to provide evidence of their SAP login history
+from 2020 onwards.
+● I accessed the SAP system and checked the user’s logon/logoff data for each month.
+● I used audit tools such as SM20 (Security Audit Log), STAD, SUIM, and ST03N to
+extract historical records.
+● I reviewed transaction usage (e.g., VA03, SE16N, SM37) and audit texts like “Logon
+successful” and “User Logoff”.
+● I organized the results month-by-month into separate Excel files (e.g.,
+01.01.2020–31.01.2020–CKAHRAMAN.XLSX).
+● Each Excel file included detailed data such as terminal ID, transaction code,
+timestamps, and program logs.
+● I structured and named the files consistently to make them easier to archive and
+analyze.
+This task helped provide solid technical evidence for the ongoing legal case. It also improved
+my skills in SAP log analysis, data organization, and compliance-related auditing.
+Figure 23: Full-Year SAP Audit Log Breakdown by Month for User Figure 24: Sample Excel File Structure for SAP
+Audit Data - Monthly User Activity
+24
+
+Figure 25 : Detailed SAP Audit Log for a Single Month – January 2024
+Date Supervisor’s Name Signature
+25
+
+● Day 15 , 30.06.2025 - Weekly (Every Monday) System Status Check – 5
+Companies
+I reviewed and compiled weekly (every Monday) system status reports for five
+different companies. This included checking server logs, system availability, backup statuses,
+and any service alerts. Each company’s infrastructure was analyzed separately, and findings
+were documented for weekly monitoring purposes.
+Figure 26 : Weekly System Status Excel Report for SAP ERP – Multi-Company Monitoring
+Checklist
+Date Supervisor’s Name Signature
+26
+
+● Day 16 , 01.07.2025 - Day 17 , 02.07.2025 - Hana PATCH
+On 01.07.2025, before starting the HANA update, I performed a complete data backup of
+both SYSTEMDB and the tenant database (NHD@NHD). The backups were saved under
+/hana/data/backup with the prefixes COMPLETE_SYS_BACKUP_NHD and
+COMPLETE_TENANT_BACKUP_NHD. I confirmed the backup files via the command line. This
+step was essential to prevent data loss during the update.
+Figure 27 :HANA Studio interface showing the complete data backup settings for both
+SYSTEMDB and tenant database (NHD@NHD).
+Figure 28 : Terminal view showing backup files in /hana/data/backup
+After completing the backup, I started the HANA update preparations. I downloaded the
+required .SAR files (IMDB_SERVER20, IMDB_CLIENT20, HDB_LCM20) from the SAP Support
+Portal and moved them to the /hana/shared/SAP_DOWNLOADS directory. I then safely
+stopped the HANA system via SAP MMC and verified the files and folder structure through
+the terminal to ensure the system was ready for the update.
+Figure 29 :Downloaded HANA server update files from SAP Support Portal.
+Figure 30: Stopping the HANA Figure 31: Terminal view showing
+system via SAP MMC. transferred .SAR files.
+27
+
+Figure 32 :SAP Support Portal download list for HANA Client 2.25.
+Figure 33 : Terminal view showing the transferred HANA installation files under
+/hana/shared/SAPDVD, organized into SAP_HANA_CLIENT and SAP_HANA_DATABASE
+directories.
+Figure 34 : Detected HANA components and versions during update.
+Figure 35 : Command line interface showing the start of SAP HANA Database and Client patch
+update process.
+28
+
+Figure 36 : Live update progress showing SAP HANA packages being patched and
+components updated.
+In Summary:
+1. Taking full database backups
+2. Downloading required patch files
+3. Stopping the HANA system (controlled shutdown)
+4. Moving patch files to correct directories
+5. Launching the HANA patch tool (hdblcm)
+6. Scanning and detecting current versions
+7. Selecting components to update and confirming
+8. Executing the patch process
+9. Restarting the system and verifying the update
+Date Supervisor’s Name Signature
+29
+
+● Day 18 , 03.07.2025 - SUSE Linux Training
+My supervisor provided training on SAP administration in a SUSE Linux environment .
+We connected to the terminal and went through several key tasks:
+- System Resource Checks:
+○ Used df -h to check disk usage.
+○ Monitored CPU and memory with top.
+○ Listed running SAP processes using ps -ef | grep sap.
+- Directory Structure and Users:
+○ Learned about the main directories /usr/sap, /hana/shared, and /hana/data,
+and their purposes.
+○ Logged in as the <SID>adm service user to manage SAP services.
+- Service Management:
+○ Observed how to start and stop SAP services using startsap, stopsap, and
+sapcontrol.
+● Day 19 , 04.07.2025 - Windows Server Training
+My supervisor trained me on SAP administration using Windows Server. The focus
+was on graphical management tools and file structures:
+- Observed how to start and stop SAP instances through SAP Management Console
+(SAP MMC).
+- Learned about the Windows directory structure (C:\usr\sap\<SID>\) and where log
+and kernel files are stored.
+- Saw how SAP services can also be managed via the Windows Services panel.
+Date Supervisor’s Name Signature
+30
+
+● Day 20 , 07.07.2025 - Weekly (Every Monday) System Status Check – 5
+Companies
+On my last day, as on every Monday, I prepared the weekly analysis reports for a
+total of 10 servers belonging to 5 different companies.
+31
+
+Date Supervisor’s Name Signature
+32
+
+Internship Documents
+CHECKLIST
+Computer Engineering Practice
+MEF University
+For the completeness of your internship report submission, you are held responsible
+to
+check the submission of the following items. The marked final checklist should be
+included to your submitted internship report as the last page. Student Evaluation
+Survey has to be submitted only through SIS.
+€ Internship Application and Acceptance Form signed/stamped? (Critical)
+€ Internship Report (Critical)
+€ Internship Evaluation Form enclosed/sealed (Critical)
+(needs to be filled with pen, or via the link sent directly to the
+company. Either way, form should be signed and enclosed)
+€ Daily activity pages signed? (Critical)
+€ Additional material (such as source codes) attached to the submitted report
+(Non-Critical)
+€ Internship Report bound and plastic-covered? (Critical)
+€ Internship Report and all accompanying material submitted in an envelope.
+€ Hereby, I accept liability for the accuracy and integrity of the submitted
+contents.
+Student Name: Helin Dinçel
+Signature:
+Date: 28.07.2025
+33

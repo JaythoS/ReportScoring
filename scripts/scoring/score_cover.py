@@ -18,7 +18,7 @@ from scripts.scoring.common import (
     extract_and_segment_pdf,
     save_score_result
 )
-from src.analyze.segment_scoring import find_cover_segment, score_cover_segment
+from core.scoring import find_cover_segment, score_cover_segment
 
 
 def print_cover_score_details(score_result: dict):

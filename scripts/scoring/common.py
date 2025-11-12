@@ -11,9 +11,25 @@ from typing import Dict, Optional
 project_root = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(project_root))
 
-from llm.tools.pdf_extractor import extract_text
-from llm.tools.gemini_segment_chunked import segment_text_chunked
-from llm.tools.fix_segmentation import fix_segmentation
+# Yeni core modüllerini kullan
+from core.extraction import extract_text_from_pdf, extract_text_from_docx
+from core.segmentation import segment_text_chunked, fix_segmentation
+
+# Backward compatibility için eski import'ları da destekle
+try:
+    from llm.tools.pdf_extractor import extract_text
+except ImportError:
+    # Eğer eski yapı yoksa, yeni yapıdan extract_text oluştur
+    def extract_text(file_path):
+        """Backward compatibility için extract_text fonksiyonu"""
+        from pathlib import Path
+        path = Path(file_path)
+        if path.suffix.lower() == '.pdf':
+            return extract_text_from_pdf(path)
+        elif path.suffix.lower() == '.docx':
+            return extract_text_from_docx(path)
+        else:
+            return path.read_text(encoding='utf-8')
 
 
 def get_safe_filename(path: Path) -> str:

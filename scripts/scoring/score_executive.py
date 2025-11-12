@@ -18,7 +18,7 @@ from scripts.scoring.common import (
     extract_and_segment_pdf,
     save_score_result
 )
-from src.analyze.segment_scoring import find_executive_summary_segment, score_executive_summary
+from core.scoring import find_executive_summary_segment, score_executive_summary
 
 
 def print_executive_score_details(score_result: dict):

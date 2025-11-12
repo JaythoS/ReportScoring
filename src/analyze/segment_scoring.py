@@ -1,7 +1,7 @@
 """
 Segment Scoring Module
-Cover segmenti için LLM tabanlı puanlama sistemi.
-Rubrik kriterlerine göre: başlık doğruluğu, biçim, bilgi tamlığı, tarih/isim varlığı.
+Cover ve Executive Summary segmentleri için LLM tabanlı puanlama sistemi.
+Rubrik kriterlerine göre puanlama yapar.
 """
 
 import os
@@ -15,9 +15,8 @@ import google.generativeai as genai
 MODEL_NAME = "gemini-2.0-flash"
 
 
-def load_prompt() -> str:
+def load_cover_prompt() -> str:
     """Cover scoring için LLM prompt şablonunu yükle"""
-    # Proje root'unu bul (src/analyze'den 2 seviye yukarı)
     project_root = Path(__file__).resolve().parents[2]
     prompt_path = project_root / "llm" / "prompts" / "cover_scoring.json.txt"
     
@@ -27,16 +26,27 @@ def load_prompt() -> str:
     return prompt_path.read_text(encoding="utf-8")
 
 
-def find_first_segment(segmentation_json: Dict) -> Optional[Dict]:
+def load_executive_prompt() -> str:
+    """Executive Summary scoring için LLM prompt şablonunu yükle"""
+    project_root = Path(__file__).resolve().parents[2]
+    prompt_path = project_root / "llm" / "prompts" / "executive_scoring.json.txt"
+    
+    if not prompt_path.exists():
+        raise FileNotFoundError(f"Prompt dosyası bulunamadı: {prompt_path}")
+    
+    return prompt_path.read_text(encoding="utf-8")
+
+
+def find_cover_segment(segmentation_json: Dict) -> Optional[Dict]:
     """
-    Segmentasyon JSON'dan ilk segmenti bul.
+    Segmentasyon JSON'dan cover segmentini bul.
     Öncelik: section_id == 'cover_1', yoksa level == 1 olan ilk segment.
     
     Args:
         segmentation_json: Segmentasyon JSON dict'i
         
     Returns:
-        İlk segment dict'i veya None
+        Cover segment dict'i veya None
     """
     sections = segmentation_json.get("segmentation", {}).get("sections", [])
     
@@ -48,34 +58,62 @@ def find_first_segment(segmentation_json: Dict) -> Optional[Dict]:
         if section.get("section_id") == "cover_1":
             return section
     
-    # Yoksa level == 1 olan ilk segmenti al
+    # Yoksa section_name'de "cover" geçen level 1 segmenti ara
+    for section in sections:
+        section_name = (section.get("section_name", "") or "").lower()
+        if "cover" in section_name and section.get("level") == 1:
+            return section
+    
+    # Hiçbiri yoksa level == 1 olan ilk segmenti al (genellikle cover)
     for section in sections:
         if section.get("level") == 1:
             return section
     
-    # Hiçbiri yoksa ilk segmenti al
-    return sections[0] if sections else None
+    return None
 
 
-def score_segment(segment: Dict, api_key: str = None) -> Dict:
+def find_executive_summary_segment(segmentation_json: Dict) -> Optional[Dict]:
     """
-    Bir segmenti rubrik kriterlerine göre puanla.
+    Segmentasyon JSON'dan Executive Summary segmentini bul.
     
     Args:
-        segment: Segment dict'i (section_id, section_name, content, vb.)
-        api_key: Gemini API key (opsiyonel, env'den alınır)
+        segmentation_json: Segmentasyon JSON dict'i
         
     Returns:
-        {
-            "score": float,  # Toplam puan (0-10)
-            "feedback": str,  # Detaylı geri bildirim
-            "criteria": {
-                "title_accuracy": float,  # Başlık doğruluğu (0-10)
-                "format": float,          # Biçim (0-10)
-                "completeness": float,    # Bilgi tamlığı (0-10)
-                "date_name_presence": float  # Tarih/isim varlığı (0-10)
-            }
-        }
+        Executive Summary segment dict'i veya None
+    """
+    sections = segmentation_json.get("segmentation", {}).get("sections", [])
+    
+    if not sections:
+        return None
+    
+    # Executive Summary'yi ara
+    for section in sections:
+        section_name = (section.get("section_name", "") or "").lower()
+        section_id = (section.get("section_id", "") or "").lower()
+        
+        # section_id'de executive_summary geçiyorsa
+        if "executive_summary" in section_id or "executive" in section_id:
+            return section
+        
+        # section_name'de executive summary geçiyorsa
+        if "executive summary" in section_name and section.get("level") == 1:
+            return section
+    
+    return None
+
+
+def _call_llm_for_scoring(prompt_template: str, segment: Dict, api_key: str = None) -> Dict:
+    """
+    LLM'i çağırarak segment puanlaması yap (ortak fonksiyon).
+    
+    Args:
+        prompt_template: Prompt şablonu
+        segment: Segment dict'i
+        api_key: Gemini API key (opsiyonel)
+        
+    Returns:
+        Puanlama sonucu dict'i
     """
     api_key = api_key or os.getenv("GEMINI_API_KEY", "")
     if not api_key:
@@ -86,14 +124,13 @@ def score_segment(segment: Dict, api_key: str = None) -> Dict:
     model = genai.GenerativeModel(
         MODEL_NAME,
         generation_config={
-            "temperature": 0.3,  # Biraz yaratıcılık için
+            "temperature": 0.3,
             "response_mime_type": "application/json"
         },
         safety_settings={}
     )
     
-    # Prompt'u yükle ve formatla
-    prompt_template = load_prompt()
+    # Prompt'u formatla
     prompt = prompt_template.format(
         SECTION_NAME=segment.get("section_name", ""),
         CONTENT=segment.get("content", "")
@@ -151,6 +188,66 @@ def score_segment(segment: Dict, api_key: str = None) -> Dict:
             raise
     
     raise RuntimeError("LLM'den geçerli çıktı alınamadı.")
+
+
+def score_cover_segment(segment: Dict, api_key: str = None) -> Dict:
+    """
+    Cover segmentini rubrik kriterlerine göre puanla.
+    
+    Args:
+        segment: Segment dict'i (section_id, section_name, content, vb.)
+        api_key: Gemini API key (opsiyonel, env'den alınır)
+        
+    Returns:
+        {
+            "score": float,  # Toplam puan (0-10)
+            "feedback": str,  # Detaylı geri bildirim
+            "criteria": {
+                "title_accuracy": float,  # Başlık doğruluğu (0-10)
+                "format": float,          # Biçim (0-10)
+                "completeness": float,    # Bilgi tamlığı (0-10)
+                "date_name_presence": float  # Tarih/isim varlığı (0-10)
+            }
+        }
+    """
+    prompt_template = load_cover_prompt()
+    return _call_llm_for_scoring(prompt_template, segment, api_key)
+
+
+def score_executive_summary(segment: Dict, api_key: str = None) -> Dict:
+    """
+    Executive Summary segmentini rubrik kriterlerine göre puanla.
+    
+    Args:
+        segment: Segment dict'i (section_id, section_name, content, vb.)
+        api_key: Gemini API key (opsiyonel, env'den alınır)
+        
+    Returns:
+        {
+            "score": float,  # Toplam puan (0-10)
+            "feedback": str,  # Detaylı geri bildirim
+            "criteria": {
+                "main_engineering_activities": float,  # Ana mühendislik faaliyetleri (0-10)
+                "major_internship_activities": float,  # Ana staj faaliyetleri (0-10)
+                "expectations_and_outcomes": float,    # Beklentiler ve sonuçlar (0-10)
+                "learning_and_benefits": float,       # Öğrenilenler ve faydalar (0-10)
+                "reader_engagement": float             # Okuyucu ilgisi (0-10)
+            }
+        }
+    """
+    prompt_template = load_executive_prompt()
+    return _call_llm_for_scoring(prompt_template, segment, api_key)
+
+
+# Geriye dönük uyumluluk için eski fonksiyon adları
+def find_first_segment(segmentation_json: Dict) -> Optional[Dict]:
+    """Geriye dönük uyumluluk için - find_cover_segment'i çağırır"""
+    return find_cover_segment(segmentation_json)
+
+
+def score_segment(segment: Dict, api_key: str = None) -> Dict:
+    """Geriye dönük uyumluluk için - score_cover_segment'i çağırır"""
+    return score_cover_segment(segment, api_key)
 
 
 def _extract_text(resp) -> str:

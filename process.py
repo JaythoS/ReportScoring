@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-PDF dosyasını segment et, cover kısmını skorla ve JSON olarak kaydet
+PDF dosyasını segment et, cover ve executive summary kısımlarını skorla ve JSON olarak kaydet
 """
 import sys
 import json
@@ -15,7 +15,12 @@ sys.path.insert(0, str(project_root))
 from llm.tools.pdf_extractor import extract_text
 from llm.tools.gemini_segment_chunked import segment_text_chunked
 from llm.tools.fix_segmentation import fix_segmentation
-from src.analyze.segment_scoring import find_first_segment, score_segment
+from src.analyze.segment_scoring import (
+    find_cover_segment, 
+    find_executive_summary_segment,
+    score_cover_segment,
+    score_executive_summary
+)
 
 
 def get_safe_filename(path: Path) -> str:
@@ -31,7 +36,7 @@ def get_safe_filename(path: Path) -> str:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="PDF dosyasını segment et, cover kısmını skorla ve JSON olarak kaydet"
+        description="PDF dosyasını segment et, cover ve executive summary kısımlarını skorla ve JSON olarak kaydet"
     )
     parser.add_argument(
         "--pdf",
@@ -64,7 +69,7 @@ def main():
     safe_name = get_safe_filename(pdf_file)
     
     print("=" * 70)
-    print("PDF İŞLEME - SEGMENTASYON VE COVER SKORLAMA")
+    print("PDF İŞLEME - SEGMENTASYON, COVER VE EXECUTIVE SUMMARY SKORLAMA")
     print("=" * 70)
     print()
     print(f"📄 Rapor: {pdf_file.name}")

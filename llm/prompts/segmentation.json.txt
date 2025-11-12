@@ -27,10 +27,11 @@ Each section must include:
 
 Level 1 Sections (Main)
 1. Cover — includes title, university, department, date (one combined section)
-2. Executive Summary
-3. Overview of the Company and Sector
-4. Activity Analysis / Project
-5. Conclusion
+   NOTE: Cover is part of "Format and Organisation" (10% weight) in the rubric, but extracted as a separate segment for scoring purposes.
+2. Executive Summary (6% weight)
+3. Overview of the Company and Sector (8% weight)
+4. Activity Analysis / Project (40% weight - MOST IMPORTANT)
+5. Conclusion (6% weight)
 
 Level 2 Sections (must have parent_id)
 - Under "Overview of the Company and Sector":
@@ -56,10 +57,12 @@ Level 2 Sections (must have parent_id)
     → ALL must be Level 2 with parent_id = conclusion_x
     → CRITICAL: Even if they appear as "A) Impact", "B) Team Work", "C) Self-directed Learning" at document root, they MUST be Level 2 under Conclusion, NOT Level 1
 
-Optional (Level 1):
+Optional (Level 1) - Part of "Format and Organisation" (10% weight):
 - Contents / İçindekiler
 - References
 - Internship Documents / Checklist
+
+NOTE: "Format and Organisation" (10% weight) includes: Cover, Contents, References, and overall document formatting. These are extracted as separate segments for evaluation purposes, but they all contribute to the "Format and Organisation" rubric criterion.
 
 ---
 

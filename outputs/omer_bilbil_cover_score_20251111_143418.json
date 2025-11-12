@@ -1,0 +1,22 @@
+{
+  "pdf_file": "ömer_bilbil.pdf",
+  "segmentation_file": "omer_bilbil_Rubric_v3_20251111_143418.fixed.json",
+  "cover_segment": {
+    "section_id": "cover_1",
+    "section_name": "COMP 200\nSummer Practice Report\nÖmer Bilbil\n042101089\n01.07.2025 – 31.07.2025, 21 workdays\nSubmitted: 29.09.2025\nMEF University\n_________________\nComputer Engineering Program",
+    "content": "COMP 200\nSummer Practice Report\nÖmer Bilbil\n042101089\n01.07.2025 – 31.07.2025, 21 workdays\nSubmitted: 29.09.2025\nMEF University\n_________________\nComputer Engineering Program\n1\n\nEx",
+    "level": 1,
+    "parent_id": null
+  },
+  "score": {
+    "total_score": 8.75,
+    "criteria": {
+      "title_accuracy": 10.0,
+      "format": 8.0,
+      "completeness": 9.0,
+      "date_name_presence": 8.0
+    },
+    "feedback": "Başlık Doğruluğu: 10 - Başlık, staj raporunun içeriğini doğru bir şekilde yansıtıyor ve açıkça belirtilmiş. Format: 8 - Kapak sayfası genel olarak düzgün biçimlendirilmiş, ancak daha profesyonel bir görünüm için bazı küçük düzenlemeler yapılabilir. Örneğin, başlık ve diğer bilgilerin yerleşimi daha iyi ayarlanabilir. Bilgi Tamlığı: 9 - Gerekli tüm bilgiler (başlık, öğrenci adı, numara, tarih, üniversite, bölüm) mevcut ve doğru. Sadece daha düzenli bir sunum tercih edilebilirdi. Tarih/İsim Varlığı: 8 - Öğrencinin adı ve teslim tarihi belirtilmiş. Ancak, tarih formatı daha standart bir formata dönüştürülebilir (örneğin, GG.AA.YYYY yerine Gün/Ay/Yıl). Ayrıca, başlangıç ve bitiş tarihleri de belirtilmiş, bu da olumlu."
+  },
+  "timestamp": "2025-11-11T14:34:24.648562"
+}

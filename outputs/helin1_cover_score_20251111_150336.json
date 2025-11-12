@@ -1,0 +1,22 @@
+{
+  "pdf_file": "helin1.pdf",
+  "segmentation_file": "helin1_Rubric_v3_20251111_150336.fixed.json",
+  "cover_segment": {
+    "section_id": "cover_1",
+    "section_name": "Computer Engineering Practice (COMP200)\nSummer Practice Report\nHelin Dinçel\n042101121\n10.06.2025 - 07.07.2025, 20 Day\nSubmitted:\nMEF University\n_________________\nComputer Engineering Program",
+    "content": "Computer Engineering Practice (COMP200)\nSummer Practice Report\nHelin Dinçel\n042101121\n10.06.2025 - 07.07.2025, 20 Day\nSubmitted:\nMEF University\n_________________\nComputer Engineeri",
+    "level": 1,
+    "parent_id": null
+  },
+  "score": {
+    "total_score": 8.75,
+    "criteria": {
+      "title_accuracy": 10.0,
+      "format": 7.0,
+      "completeness": 9.0,
+      "date_name_presence": 9.0
+    },
+    "feedback": "Başlık Doğruluğu: 10/10. Başlık, staj raporunun içeriğini doğru bir şekilde yansıtıyor ve açıkça belirtiyor. Format: 7/10. Kapak sayfası genel olarak doğru formatta, ancak bazı tutarsızlıklar var. 'Submitted:' ifadesinden sonraki boşluk ve 'Computer Engineeri' kelimesinin eksik tamamlanması gibi küçük biçimlendirme hataları mevcut. Bilgi Tamlığı: 9/10. Gerekli tüm bilgiler (başlık, öğrenci adı, numara, tarih, üniversite, bölüm) mevcut. Ancak, bölüm adının tam olarak belirtilmesi daha iyi olurdu ('Computer Engineering Program' yeterli, ancak daha spesifik olabilir). Tarih/İsim Varlığı: 9/10. Öğrencinin adı ve tarih açıkça belirtilmiş. Tarih formatı doğru ve anlaşılır. Genel olarak, kapak sayfası iyi hazırlanmış, ancak küçük biçimlendirme hataları ve bölüm adının daha spesifik olmaması nedeniyle puan kırılmıştır."
+  },
+  "timestamp": "2025-11-11T15:03:41.338484"
+}

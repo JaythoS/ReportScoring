@@ -1,0 +1,22 @@
+{
+  "pdf_file": "enes_e.pdf",
+  "segmentation_file": "enes_e_Rubric_v3_20251111_144219.fixed.json",
+  "cover_segment": {
+    "section_id": "cover_1",
+    "section_name": "COMP 200\nSummer Practice Report\nEnes Ertuğrul\n042101074\n16.07.2025-20.08.2024, 24 workdays\nSubmitted: Report Submission Date\nMEF University\n_________________\nComputer Engineering Program\nInternship Report",
+    "content": "COMP 200\nSummer Practice Report\nEnes Ertuğrul\n042101074\n16.07.2025-20.08.2024, 24 workdays\nSubmitted: Report Submission Date\nMEF University\n_________________\nComputer Engineering Program\nInternship Report\n\nExec",
+    "level": 1,
+    "parent_id": null
+  },
+  "score": {
+    "total_score": 7.5,
+    "criteria": {
+      "title_accuracy": 8.0,
+      "format": 7.0,
+      "completeness": 8.0,
+      "date_name_presence": 7.0
+    },
+    "feedback": "Başlık Doğruluğu: 8/10. Başlık, staj raporunun içeriğini genel olarak yansıtıyor ancak daha spesifik olabilir. Örneğin, stajın konusu veya projesi başlıkta belirtilebilir. Biçim: 7/10. Kapak sayfası genel olarak doğru biçimlendirilmiş, ancak tarihlerde tutarsızlık var (başlangıç tarihi 2025, bitiş tarihi 2024). Bu bir hatadır. Bilgi Tamlığı: 8/10. Gerekli tüm bilgiler mevcut (üniversite, bölüm, öğrenci adı, tarih), ancak tarihlerdeki tutarsızlık düzeltilmelidir. Öğrenci numarası da belirtilmiş. Tarih/İsim Varlığı: 7/10. Öğrencinin adı ve rapor teslim tarihi belirtilmiş, ancak tarihlerdeki tutarsızlık nedeniyle puan kırılmıştır. Ayrıca, 'Report Submission Date' yerine gerçek teslim tarihi belirtilmelidir."
+  },
+  "timestamp": "2025-11-11T14:42:23.098740"
+}

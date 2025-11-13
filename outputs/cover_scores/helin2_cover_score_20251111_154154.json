@@ -1,0 +1,22 @@
+{
+  "pdf_file": "helin2.pdf",
+  "segmentation_file": "helin2_Rubric_v3_20251111_153418.fixed.json",
+  "cover_segment": {
+    "section_id": "cover_1",
+    "section_name": "Computer Engineering Practice (COMP200)\nSummer Practice Report\nHelin Dinçel\n042101121\n04.08.2025 - 29.08.2025, 20 Days\nSubmitted: 28.09.2025\nMEF University\n_________________\nComputer Engineering Program",
+    "content": "Computer Engineering Practice (COMP200)\nSummer Practice Report\nHelin Dinçel\n042101121\n04.08.2025 - 29.08.2025, 20 Days\nSubmitted: 28.09.2025\nMEF University\n_________________\nComputer Engineering Progra",
+    "level": 1,
+    "parent_id": null
+  },
+  "score": {
+    "total_score": 8.75,
+    "criteria": {
+      "title_accuracy": 10.0,
+      "format": 8.0,
+      "completeness": 9.0,
+      "date_name_presence": 8.0
+    },
+    "feedback": "Başlık Doğruluğu: 10/10. Başlık, staj raporunun içeriğini doğru bir şekilde yansıtıyor ve açıkça belirtiyor. Format: 8/10. Kapak sayfasında gerekli tüm unsurlar (başlık, öğrenci adı, tarih, üniversite, bölüm) bulunuyor. Ancak, 'Content:' başlığı altında tekrar eden bilgiler gereksiz ve profesyonel görünümü zedeliyor. Bu tekrar olmamalıydı. Bilgi Tamlığı: 9/10. Gerekli tüm bilgiler eksiksiz ve doğru bir şekilde sunulmuş. Öğrenci numarası, staj tarihleri ve teslim tarihi belirtilmiş. Ancak, format kısmında belirtildiği gibi, içeriğin tekrarı gereksiz. Tarih/İsim Varlığı: 8/10. Öğrencinin adı ve teslim tarihi açıkça belirtilmiş. Tarih formatı doğru. Ancak, staj başlangıç ve bitiş tarihleri de belirtilmiş olmasına rağmen, teslim tarihi daha belirgin olmalıydı. Ayrıca, 'Progra' kelimesi 'Program' şeklinde düzeltilmelidir."
+  },
+  "timestamp": "2025-11-11T15:41:54.136431"
+}

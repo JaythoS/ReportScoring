@@ -1,0 +1,22 @@
+{
+  "pdf_file": "umut.pdf",
+  "segmentation_file": "umut_Rubric_v3_20251111_162545.fixed.json",
+  "cover_segment": {
+    "section_id": "cover_1",
+    "section_name": "COMP 200\nSummer Practice Report\nUmut Kadıoğlu\n042201104\n07.07.2025- 15.08.2025, 29 Workdays\nSubmitted: 28.09.2025\nMEF University\n_________________\nComputer Engineering Program\n1",
+    "content": "COMP 200\nSummer Practice Report\nUmut Kadıoğlu\n042201104\n07.07.2025- 15.08.2025, 29 Workdays\nSubmitted: 28.09.2025\nMEF University\n_________________\nComputer Engineering Program\n1\n\nEx",
+    "level": 1,
+    "parent_id": null
+  },
+  "score": {
+    "total_score": 8.5,
+    "criteria": {
+      "title_accuracy": 9.0,
+      "format": 8.0,
+      "completeness": 9.0,
+      "date_name_presence": 8.0
+    },
+    "feedback": "Başlık Doğruluğu: 9/10. Başlık, staj raporunun içeriğini genel olarak yansıtıyor. Ancak, daha spesifik bir başlık (örneğin, stajın yapıldığı şirket veya proje adını içeren) daha iyi olabilirdi. Format: 8/10. Kapak sayfası gerekli unsurları içeriyor (başlık, öğrenci adı, tarih, üniversite, bölüm). Ancak, düzen biraz daha profesyonel olabilir. Örneğin, öğelerin hizalanması ve yazı tipi tutarlılığı iyileştirilebilir. Bilgi Tamlığı: 9/10. Gerekli tüm bilgiler mevcut ve doğru. Öğrenci numarası, tarihler ve üniversite bilgileri eksiksiz. Tarih/İsim Varlığı: 8/10. Öğrencinin adı ve teslim tarihi açıkça belirtilmiş. Ancak, tarihin formatı (28.09.2025) bazı akademik standartlara göre farklılık gösterebilir. Genel olarak, kapak sayfası yeterli düzeyde ancak format ve başlık konusunda iyileştirmeler yapılabilir."
+  },
+  "timestamp": "2025-11-11T16:25:57.238354"
+}

@@ -1,0 +1,20 @@
+{
+  "train": [
+    "Doğuş Teknoloji Intern Report LAST.docx ",
+    "report_002",
+    "report_003",
+    "report_001",
+    "report_005"
+  ],
+  "test": [
+    "Core4Basis Intern Report SON.docx - Google Dokümanlar",
+    "report_004"
+  ],
+  "train_count": 5,
+  "test_count": 2,
+  "total_count": 7,
+  "train_ratio": 0.7142857142857143,
+  "split_date": "2025-11-08T09:52:15.944099",
+  "split_method": "random",
+  "random_seed": 42
+}

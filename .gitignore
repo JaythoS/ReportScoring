@@ -1,0 +1,103 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# API Keys & Secrets
+.env
+.env.local
+*.key
+*.pem
+*.p12
+*.p8
+secrets/
+credentials/
+
+# Kişisel Veriler - RAW DATA (ASLA COMMIT ETMEYİN!)
+data/raw/**
+!data/raw/README.md
+data/train/**
+!data/train/README.md
+data/test/**
+!data/test/README.md
+
+# İşlenmiş Veriler - Metadata (Puan bilgisi içerir)
+data/processed/metadata/**
+!data/processed/metadata/.gitkeep
+
+# Anonimleştirme Mapping Dosyaları (Kişisel veri mapping'leri)
+data/processed/anonymization_mappings/**
+!data/processed/anonymization_mappings/.gitkeep
+
+# Anonimleştirilmiş Dosyalar (Opsiyonel - test için)
+# data/processed/anonymized/**
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# Temporary Files
+*.tmp
+*.temp
+.cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Outputs (Opsiyonel - İsterseniz commit edebilirsiniz)
+# outputs/segmentations/**
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project Specific
+*.pdf
+*.docx
+*.doc
+!requirements.txt
+
+# Keep empty directories
+!data/raw/.gitkeep
+!data/train/.gitkeep
+!data/test/.gitkeep
+!data/processed/texts/.gitkeep
+!data/processed/segmentations/.gitkeep
+!data/processed/metadata/.gitkeep
+

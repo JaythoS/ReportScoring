@@ -1,0 +1,22 @@
+{
+  "pdf_file": "ömer_bilbil2.pdf",
+  "segmentation_file": "ömer_bilbil2_Rubric_v3_20251111_145717.fixed.json",
+  "cover_segment": {
+    "section_id": "cover_1",
+    "section_name": "COMP 399\nSummer Practice Report\nÖmer Bilbil\n042101089\n04.08.2025 – 29.08.2025, 20 workdays\nSubmitted: 29.09.2025\nMEF University\n_________________\nComputer Engineering Program",
+    "content": "COMP 399\nSummer Practice Report\nÖmer Bilbil\n042101089\n04.08.2025 – 29.08.2025, 20 workdays\nSubmitted: 29.09.2025\nMEF University\n_________________\nComputer Engineering Pro",
+    "level": 1,
+    "parent_id": null
+  },
+  "score": {
+    "total_score": 8.5,
+    "criteria": {
+      "title_accuracy": 9.0,
+      "format": 8.0,
+      "completeness": 9.0,
+      "date_name_presence": 8.0
+    },
+    "feedback": "Başlık Doğruluğu: 9/10. Başlık, staj raporunun içeriğini doğru bir şekilde yansıtıyor. \"COMP 399 Summer Practice Report\" ifadesi yeterince açık ve anlaşılır. Ancak, başlığın daha spesifik hale getirilmesi (örneğin, stajın konusunu kısaca belirterek) daha iyi olabilirdi. \n\nBiçim: 8/10. Kapak sayfasının genel biçimi kabul edilebilir düzeyde. Gerekli unsurların çoğu mevcut. Ancak, MEF Üniversitesi ve Bilgisayar Mühendisliği Programı arasındaki çizgi biraz fazla belirgin ve profesyonel görünmüyor. Ayrıca, kapak sayfasının daha düzenli ve estetik bir görünüme sahip olması için biraz daha özen gösterilebilirdi.\n\nBilgi Tamlığı: 9/10. Gerekli bilgilerin çoğu mevcut ve doğru. Öğrenci adı, numarası, staj tarihleri ve teslim tarihi belirtilmiş. Ancak, staj yapılan kurumun adı belirtilmemiş. Bu önemli bir eksiklik.\n\nTarih/İsim Varlığı: 8/10. Öğrencinin adı ve teslim tarihi açıkça belirtilmiş. Tarihler doğru formatta ve tutarlı. Ancak, staj bitiş tarihi de belirtilmiş olsa da, teslim tarihinin daha belirgin bir şekilde vurgulanması daha iyi olurdu. Ayrıca, staj yapılan kurumun adının da kapakta yer alması gerekirdi."
+  },
+  "timestamp": "2025-11-11T14:57:21.447010"
+}

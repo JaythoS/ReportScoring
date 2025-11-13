@@ -16,6 +16,9 @@ from pathlib import Path
 project_root = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(project_root))
 from llm.tools.gemini_segment import load_prompt, _extract_text, _repair_json, MODEL_NAME
+from dotenv import load_dotenv
+load_dotenv()
+
 
 # Chunking parametreleri
 MAX_CHUNK_SIZE = 15000  # karakter
@@ -375,7 +378,7 @@ def segment_text_chunked(text: str, api_key: str = None) -> str:
         from llm.tools.gemini_segment import segment_text
         return segment_text(text, api_key=api_key)
     
-    print(f"📦 Metin {len(chunks)} chunk'a bölündü (her chunk ~{MAX_CHUNK_SIZE:,} karakter)")
+    print(f" Metin {len(chunks)} chunk'a bölündü (her chunk ~{MAX_CHUNK_SIZE:,} karakter)")
     print()
     
     genai.configure(api_key=api_key)
@@ -391,7 +394,7 @@ def segment_text_chunked(text: str, api_key: str = None) -> str:
     
     # Her chunk'ı işle
     for i, (chunk_start, chunk_end, chunk_text) in enumerate(chunks, 1):
-        print(f"🔄 Chunk {i}/{len(chunks)} işleniyor... (pozisyon {chunk_start:,}-{chunk_end:,})")
+        print(f" Chunk {i}/{len(chunks)} işleniyor... (pozisyon {chunk_start:,}-{chunk_end:,})")
         
         prompt = load_prompt().format(TEXT=chunk_text, SOURCE_LEN=len(chunk_text))
         
@@ -415,7 +418,7 @@ def segment_text_chunked(text: str, api_key: str = None) -> str:
                     raise
         
         if not output:
-            print(f"⚠️  Chunk {i} boş yanıt döndü, atlanıyor...")
+            print(f"  Chunk {i} boş yanıt döndü, atlanıyor...")
             continue
         
         # Model çıktısını temizle
@@ -429,11 +432,11 @@ def segment_text_chunked(text: str, api_key: str = None) -> str:
                 'chunk_start': chunk_start,
                 'sections': sections
             })
-            print(f"   ✅ {len(sections)} bölüm çıkarıldı")
+            print(f"    {len(sections)} bölüm çıkarıldı")
         except json.JSONDecodeError as e:
             # Repair dene
-            print(f"   ⚠️  JSON parse hatası: {e}")
-            print(f"   🔄 Repair deneniyor...")
+            print(f"     JSON parse hatası: {e}")
+            print(f"    Repair deneniyor...")
             repaired = _repair_json(output)
             try:
                 data = json.loads(repaired)
@@ -442,10 +445,10 @@ def segment_text_chunked(text: str, api_key: str = None) -> str:
                     'chunk_start': chunk_start,
                     'sections': sections
                 })
-                print(f"   ✅ {len(sections)} bölüm çıkarıldı (repair ile)")
+                print(f"    {len(sections)} bölüm çıkarıldı (repair ile)")
             except json.JSONDecodeError as e2:
-                print(f"   ❌ Chunk {i} repair ile de parse edilemedi: {e2}")
-                print(f"   🔄 Retry ile tekrar deneniyor...")
+                print(f"    Chunk {i} repair ile de parse edilemedi: {e2}")
+                print(f"    Retry ile tekrar deneniyor...")
                 
                 # Retry ile tekrar dene
                 time.sleep(2)
@@ -476,7 +479,7 @@ def segment_text_chunked(text: str, api_key: str = None) -> str:
                             'chunk_start': chunk_start,
                             'sections': sections
                         })
-                        print(f"   ✅ {len(sections)} bölüm çıkarıldı (retry ile)")
+                        print(f"   {len(sections)} bölüm çıkarıldı (retry ile)")
                     except:
                         # Son çare: repair ile tekrar dene
                         repaired2 = _repair_json(output2)
@@ -487,18 +490,18 @@ def segment_text_chunked(text: str, api_key: str = None) -> str:
                                 'chunk_start': chunk_start,
                                 'sections': sections
                             })
-                            print(f"   ✅ {len(sections)} bölüm çıkarıldı (retry + repair ile)")
+                            print(f"    {len(sections)} bölüm çıkarıldı (retry + repair ile)")
                         except:
-                            print(f"   ❌ Chunk {i} tamamen başarısız, atlanıyor...")
-                            print(f"   ⚠️  Bu chunk'daki bölümler eksik kalacak!")
+                            print(f"    Chunk {i} tamamen başarısız, atlanıyor...")
+                            print(f"     Bu chunk'daki bölümler eksik kalacak!")
                 except Exception as retry_error:
-                    print(f"   ❌ Retry hatası: {retry_error}")
-                    print(f"   ⚠️  Chunk {i} atlanıyor - bu chunk'daki bölümler eksik kalacak!")
+                    print(f"    Retry hatası: {retry_error}")
+                    print(f"    Chunk {i} atlanıyor - bu chunk'daki bölümler eksik kalacak!")
         
         print()
     
     # Sonuçları birleştir
-    print("🔗 Chunk sonuçları birleştiriliyor...")
+    print(" Chunk sonuçları birleştiriliyor...")
     merged = merge_segmentations(chunk_results, text)
     
     # Validasyon
@@ -506,19 +509,19 @@ def segment_text_chunked(text: str, api_key: str = None) -> str:
     validation = validate_segmentation_result(sections, text)
     
     if not validation['valid']:
-        print("⚠️  Validasyon hataları bulundu:")
+        print("  Validasyon hataları bulundu:")
         for error in validation['errors']:
-            print(f"   ❌ {error}")
+            print(f"    {error}")
     
     if validation['warnings']:
-        print("ℹ️  Validasyon uyarıları:")
+        print("  Validasyon uyarıları:")
         for warning in validation['warnings'][:5]:  # İlk 5 uyarıyı göster
-            print(f"   ⚠️  {warning}")
+            print(f"     {warning}")
         if len(validation['warnings']) > 5:
             print(f"   ... ve {len(validation['warnings']) - 5} uyarı daha")
     
     if validation['valid']:
-        print("✅ Validasyon başarılı!")
+        print(" Validasyon başarılı!")
     
     return json.dumps(merged, ensure_ascii=False, indent=2)
 

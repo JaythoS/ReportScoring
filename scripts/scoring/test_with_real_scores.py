@@ -156,13 +156,13 @@ def main():
     # API key
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
-        print("❌ GEMINI_API_KEY environment variable ayarlanmamış!")
+        print(" GEMINI_API_KEY environment variable ayarlanmamış!")
         sys.exit(1)
     
     # Excel dosyasını yükle
     excel_path = project_root / "data" / "ie_drive " / "Book1.xlsx"
     if not excel_path.exists():
-        print(f"❌ Excel dosyası bulunamadı: {excel_path}")
+        print(f" Excel dosyası bulunamadı: {excel_path}")
         sys.exit(1)
     
     print("=" * 80)
@@ -171,7 +171,7 @@ def main():
     print()
     
     df = load_real_scores(excel_path)
-    print(f"✅ Excel dosyası yüklendi: {len(df)} öğrenci")
+    print(f" Excel dosyası yüklendi: {len(df)} öğrenci")
     print(f"   Sütunlar: {list(df.columns[:5])}...")
     print()
     
@@ -184,7 +184,7 @@ def main():
     else:
         students = df.head(args.limit)
     
-    print(f"🧪 {len(students)} öğrenci test edilecek")
+    print(f" {len(students)} öğrenci test edilecek")
     print()
     
     results = []
@@ -195,15 +195,15 @@ def main():
         max_score = 6.0  # Executive Summary maksimum puan
         
         if pd.isna(real_score):
-            print(f"⚠️  {student_id}: Not bulunamadı, atlanıyor")
+            print(f"  {student_id}: Not bulunamadı, atlanıyor")
             continue
         
-        print(f"📄 {student_id}: Gerçek not = {real_score}/{max_score}")
+        print(f" {student_id}: Gerçek not = {real_score}/{max_score}")
         
         # PDF dosyasını bul
         pdf_file = find_student_pdf(student_id, ie_drive_dir)
         if not pdf_file:
-            print(f"   ❌ PDF dosyası bulunamadı")
+            print(f"    PDF dosyası bulunamadı")
             results.append({
                 "student_id": student_id,
                 "status": "error",
@@ -212,7 +212,7 @@ def main():
             })
             continue
         
-        print(f"   📁 PDF: {pdf_file.name}")
+        print(f"    PDF: {pdf_file.name}")
         
         # Test et
         result = test_executive_summary_scoring(
@@ -226,10 +226,10 @@ def main():
         results.append(result)
         
         if result["status"] == "success":
-            print(f"   ✅ LLM Not: {result['llm_score_scaled']:.2f}/{max_score}")
-            print(f"   📊 Hata: {result['error']:.2f} ({result['error_percentage']:.1f}%)")
+            print(f"    LLM Not: {result['llm_score_scaled']:.2f}/{max_score}")
+            print(f"    Hata: {result['error']:.2f} ({result['error_percentage']:.1f}%)")
         else:
-            print(f"   ❌ Hata: {result.get('error', 'Bilinmeyen hata')}")
+            print(f"    Hata: {result.get('error', 'Bilinmeyen hata')}")
         
         print()
     
@@ -243,8 +243,8 @@ def main():
         avg_error = sum(r["error"] for r in successful) / len(successful)
         avg_error_pct = sum(r["error_percentage"] for r in successful) / len(successful)
         
-        print(f"✅ Başarılı test: {len(successful)}/{len(results)}")
-        print(f"📊 Ortalama hata: {avg_error:.2f} puan ({avg_error_pct:.1f}%)")
+        print(f" Başarılı test: {len(successful)}/{len(results)}")
+        print(f" Ortalama hata: {avg_error:.2f} puan ({avg_error_pct:.1f}%)")
         print()
         
         # Detaylı sonuçlar
@@ -266,7 +266,7 @@ def main():
             "results": results
         }, f, ensure_ascii=False, indent=2)
     
-    print(f"\n✅ Sonuçlar kaydedildi: {output_file}")
+    print(f"\n Sonuçlar kaydedildi: {output_file}")
 
 
 if __name__ == "__main__":

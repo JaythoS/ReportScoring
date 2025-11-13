@@ -222,7 +222,7 @@ def main():
         raw_file_path = (project_root / raw_file_path).resolve()
     
     if not raw_file_path.exists():
-        print(f"❌ Ham dosya bulunamadı: {raw_file_path}")
+        print(f" Ham dosya bulunamadı: {raw_file_path}")
         sys.exit(1)
     
     # Report ID'yi belirle
@@ -257,8 +257,8 @@ def main():
     print("=" * 70)
     print("METADATA OLUŞTURULUYOR")
     print("=" * 70)
-    print(f"📄 Rapor ID: {report_id}")
-    print(f"📁 Dosya: {filename}")
+    print(f" Rapor ID: {report_id}")
+    print(f" Dosya: {filename}")
     print()
     
     # Metadata oluştur
@@ -274,9 +274,9 @@ def main():
     # Kaydet
     save_metadata(metadata, output_path)
     
-    print(f"✅ Metadata oluşturuldu: {output_path}")
+    print(f" Metadata oluşturuldu: {output_path}")
     print()
-    print("📊 Özet:")
+    print(" Özet:")
     print(f"   Report ID: {metadata['report_id']}")
     print(f"   Timestamp: {metadata['timestamp']}")
     print(f"   Version: {metadata['version']}")

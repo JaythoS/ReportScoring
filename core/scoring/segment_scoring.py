@@ -281,7 +281,7 @@ def test_multiple_reports(segmentation_files: List[Path], output_csv: Path = Non
     results = []
     
     for seg_file in segmentation_files:
-        print(f"\n📄 İşleniyor: {seg_file.name}")
+        print(f"\n İşleniyor: {seg_file.name}")
         
         try:
             # JSON'u yükle
@@ -291,10 +291,10 @@ def test_multiple_reports(segmentation_files: List[Path], output_csv: Path = Non
             # İlk segmenti bul
             first_segment = find_first_segment(seg_data)
             if not first_segment:
-                print(f"  ⚠️  İlk segment bulunamadı, atlanıyor.")
+                print(f"    İlk segment bulunamadı, atlanıyor.")
                 continue
             
-            print(f"  ✅ Segment bulundu: {first_segment.get('section_id', 'unknown')}")
+            print(f"  Segment bulundu: {first_segment.get('section_id', 'unknown')}")
             
             # Puanla
             score_result = score_segment(first_segment)
@@ -315,14 +315,14 @@ def test_multiple_reports(segmentation_files: List[Path], output_csv: Path = Non
             
             results.append(result)
             
-            print(f"  📊 Toplam Puan: {result['total_score']:.2f}/10")
+            print(f"   Toplam Puan: {result['total_score']:.2f}/10")
             print(f"     - Başlık Doğruluğu: {result['title_accuracy']:.2f}/10")
             print(f"     - Biçim: {result['format']:.2f}/10")
             print(f"     - Bilgi Tamlığı: {result['completeness']:.2f}/10")
             print(f"     - Tarih/İsim Varlığı: {result['date_name_presence']:.2f}/10")
             
         except Exception as e:
-            print(f"  ❌ Hata: {e}")
+            print(f"   Hata: {e}")
             results.append({
                 "file_name": seg_file.name,
                 "error": str(e),
@@ -359,7 +359,7 @@ def test_multiple_reports(segmentation_files: List[Path], output_csv: Path = Non
             writer.writeheader()
             writer.writerows(all_results)
         
-        print(f"\n✅ Sonuçlar CSV'ye kaydedildi: {output_csv}")
+        print(f"\n Sonuçlar CSV'ye kaydedildi: {output_csv}")
         
         # JSON'a da kaydet
         output_json = output_csv.parent / (output_csv.stem + ".json")
@@ -370,7 +370,7 @@ def test_multiple_reports(segmentation_files: List[Path], output_csv: Path = Non
                 "last_updated": all_results[-1]["timestamp"] if all_results else None
             }, f, ensure_ascii=False, indent=2)
         
-        print(f"✅ Sonuçlar JSON'a kaydedildi: {output_json}")
+        print(f" Sonuçlar JSON'a kaydedildi: {output_json}")
         
         # Ortalama istatistikleri göster
         valid_results = [r for r in all_results if "error" not in r and "total_score" in r]
@@ -380,7 +380,7 @@ def test_multiple_reports(segmentation_files: List[Path], output_csv: Path = Non
                 if isinstance(r.get("total_score"), str):
                     r["total_score"] = float(r["total_score"])
             avg_score = sum(r["total_score"] for r in valid_results) / len(valid_results)
-            print(f"\n📈 Ortalama Toplam Puan: {avg_score:.2f}/10")
+            print(f"\n Ortalama Toplam Puan: {avg_score:.2f}/10")
             print(f"   Test edilen dosya sayısı: {len(valid_results)}")
     
     return results
@@ -395,12 +395,12 @@ if __name__ == "__main__":
     fixed_files = sorted(outputs_dir.glob("*.fixed.json"), key=lambda p: p.stat().st_mtime, reverse=True)
     
     if len(fixed_files) == 0:
-        print(f"⚠️  Segmentation dosyası bulunamadı.")
+        print(f"  Segmentation dosyası bulunamadı.")
         print(f"   {outputs_dir} klasöründe .fixed.json dosyası olmalı.")
     else:
         # Mevcut dosyaları al (en fazla 3)
         test_files = fixed_files[:min(3, len(fixed_files))]
-        print(f"🧪 Test edilecek dosyalar:")
+        print(f" Test edilecek dosyalar:")
         for f in test_files:
             print(f"   - {f.name}")
         

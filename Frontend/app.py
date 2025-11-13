@@ -1,6 +1,7 @@
-import streamlit as st
+from dotenv import load_dotenv
+load_dotenv()
 
-# Component'leri import et
+import streamlit as st
 from Frontend.components.upload import render_upload
 from Frontend.components.results import render_results
 from Frontend.components.dashboard import render_dashboard
@@ -34,7 +35,7 @@ tab1, tab2, tab3 = st.tabs([" Analiz", " Dashboard", " Geçmiş Analizler"])
 
 # --- TAB 1: Upload + Sonuçlar ---
 with tab1:
-    st.markdown("### 🔹 Analiz Akışı")
+    st.markdown("### Analiz Akışı")
     render_upload()
     st.divider()
     render_results()

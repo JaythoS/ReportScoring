@@ -61,7 +61,7 @@ def copy_reports(reports: list, source_dir: Path, target_dir: Path) -> int:
             shutil.copy2(report, target_file)
             copied += 1
         except Exception as e:
-            print(f"⚠️  Hata: {report.name} kopyalanamadı: {e}")
+            print(f"  Hata: {report.name} kopyalanamadı: {e}")
     
     return copied
 
@@ -97,23 +97,23 @@ def main():
     
     # Raw klasörü kontrolü
     if not raw_dir.exists():
-        print(f"❌ Raw klasörü bulunamadı: {raw_dir}")
+        print(f" Raw klasörü bulunamadı: {raw_dir}")
         sys.exit(1)
     
     # Rapor dosyalarını al
-    print("📄 Rapor dosyaları aranıyor...")
+    print(" Rapor dosyaları aranıyor...")
     reports = get_report_files(raw_dir)
     
     if not reports:
-        print(f"❌ {raw_dir} klasöründe rapor dosyası bulunamadı")
+        print(f" {raw_dir} klasöründe rapor dosyası bulunamadı")
         print("   Lütfen PDF veya DOCX dosyalarını data/raw/ klasörüne ekleyin")
         sys.exit(1)
     
-    print(f"✅ {len(reports)} rapor dosyası bulundu")
+    print(f" {len(reports)} rapor dosyası bulundu")
     print()
     
     # Train/Test ayrımı
-    print("🔄 Train/Test ayrımı yapılıyor...")
+    print(" Train/Test ayrımı yapılıyor...")
     train_reports, test_reports = split_reports(reports, train_ratio=0.8, random_seed=42)
     
     print(f"   Train: {len(train_reports)} rapor (%{len(train_reports)/len(reports)*100:.1f})")
@@ -121,31 +121,31 @@ def main():
     print()
     
     # Train setini kopyala
-    print("📁 Train seti kopyalanıyor...")
+    print(" Train seti kopyalanıyor...")
     train_copied = copy_reports(train_reports, raw_dir, train_dir)
-    print(f"✅ {train_copied}/{len(train_reports)} rapor kopyalandı")
+    print(f" {train_copied}/{len(train_reports)} rapor kopyalandı")
     print()
     
     # Test setini kopyala
-    print("📁 Test seti kopyalanıyor...")
+    print(" Test seti kopyalanıyor...")
     test_copied = copy_reports(test_reports, raw_dir, test_dir)
-    print(f"✅ {test_copied}/{len(test_reports)} rapor kopyalandı")
+    print(f" {test_copied}/{len(test_reports)} rapor kopyalandı")
     print()
     
     # Ayrım bilgisini kaydet
-    print("💾 Ayrım bilgisi kaydediliyor...")
+    print(" Ayrım bilgisi kaydediliyor...")
     save_split_info(train_reports, test_reports, split_info_file)
-    print(f"✅ Ayrım bilgisi kaydedildi: {split_info_file}")
+    print(f" Ayrım bilgisi kaydedildi: {split_info_file}")
     print()
     
     # Özet
     print("=" * 70)
-    print("✅ TRAIN/TEST AYRIMI TAMAMLANDI")
+    print(" TRAIN/TEST AYRIMI TAMAMLANDI")
     print("=" * 70)
-    print(f"📊 Toplam: {len(reports)} rapor")
-    print(f"📚 Train: {len(train_reports)} rapor → {train_dir}")
-    print(f"🧪 Test: {len(test_reports)} rapor → {test_dir}")
-    print(f"📝 Ayrım bilgisi: {split_info_file}")
+    print(f" Toplam: {len(reports)} rapor")
+    print(f" Train: {len(train_reports)} rapor → {train_dir}")
+    print(f" Test: {len(test_reports)} rapor → {test_dir}")
+    print(f" Ayrım bilgisi: {split_info_file}")
     print()
 
 

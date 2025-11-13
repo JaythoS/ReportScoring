@@ -27,21 +27,21 @@ def validate_metadata(metadata_path: Path, schema_path: Path) -> tuple[bool, lis
     try:
         import jsonschema
     except ImportError:
-        print("⚠️  jsonschema paketi yüklü değil. Basit validation yapılıyor...")
+        print("  jsonschema paketi yüklü değil. Basit validation yapılıyor...")
         return validate_metadata_simple(metadata_path, schema_path)
     
     # Şemayı yükle
     try:
         schema = json.loads(schema_path.read_text(encoding='utf-8'))
     except Exception as e:
-        print(f"❌ Şema yüklenemedi: {e}")
+        print(f" Şema yüklenemedi: {e}")
         return False, [f"Schema load error: {e}"]
     
     # Metadata'yı yükle
     try:
         metadata = json.loads(metadata_path.read_text(encoding='utf-8'))
     except Exception as e:
-        print(f"❌ Metadata yüklenemedi: {e}")
+        print(f" Metadata yüklenemedi: {e}")
         return False, [f"Metadata load error: {e}"]
     
     # Validate et
@@ -117,7 +117,7 @@ def main():
     # Dosya yollarını belirle
     metadata_path = Path(args.metadata_file)
     if not metadata_path.exists():
-        print(f"❌ Metadata dosyası bulunamadı: {metadata_path}")
+        print(f" Metadata dosyası bulunamadı: {metadata_path}")
         sys.exit(1)
     
     if args.schema:
@@ -126,16 +126,16 @@ def main():
         schema_path = project_root / "schemas" / "metadata.schema.json"
     
     if not schema_path.exists():
-        print(f"⚠️  Şema dosyası bulunamadı: {schema_path}")
+        print(f"  Şema dosyası bulunamadı: {schema_path}")
         print("   Basit validation yapılıyor...")
         schema_path = None
     
     print("=" * 70)
     print("METADATA VALIDATION")
     print("=" * 70)
-    print(f"📄 Metadata: {metadata_path}")
+    print(f" Metadata: {metadata_path}")
     if schema_path:
-        print(f"📋 Schema: {schema_path}")
+        print(f" Schema: {schema_path}")
     print()
     
     # Validate et
@@ -146,12 +146,12 @@ def main():
     
     # Sonuçları göster
     if is_valid:
-        print("✅ Metadata geçerli!")
+        print(" Metadata geçerli!")
         print()
         
         # Metadata bilgilerini göster
         metadata = json.loads(metadata_path.read_text(encoding='utf-8'))
-        print("📊 Metadata Bilgileri:")
+        print(" Metadata Bilgileri:")
         print(f"   Report ID: {metadata.get('report_id', 'N/A')}")
         print(f"   Filename: {metadata.get('filename', 'N/A')}")
         print(f"   Timestamp: {metadata.get('timestamp', 'N/A')}")
@@ -161,7 +161,7 @@ def main():
         if 'dataset_split' in metadata:
             print(f"   Dataset Split: {metadata['dataset_split']}")
     else:
-        print("❌ Metadata geçersiz!")
+        print(" Metadata geçersiz!")
         print()
         print("Hatalar:")
         for error in errors:

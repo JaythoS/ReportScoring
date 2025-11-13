@@ -312,7 +312,7 @@ def main():
     # Batch modu
     if args.batch:
         if not args.input_dir or not args.output_dir:
-            print("❌ Batch modu için --input-dir ve --output-dir gerekli")
+            print(" Batch modu için --input-dir ve --output-dir gerekli")
             sys.exit(1)
         
         input_dir = Path(args.input_dir)
@@ -324,9 +324,9 @@ def main():
         print("=" * 70)
         print("BATCH ANONİMLEŞTİRME")
         print("=" * 70)
-        print(f"📁 Girdi klasörü: {input_dir}")
-        print(f"📁 Çıktı klasörü: {output_dir}")
-        print(f"📄 Toplam dosya: {len(text_files)}")
+        print(f" Girdi klasörü: {input_dir}")
+        print(f" Çıktı klasörü: {output_dir}")
+        print(f" Toplam dosya: {len(text_files)}")
         print()
         
         for i, input_file in enumerate(text_files, 1):
@@ -338,19 +338,19 @@ def main():
             
             try:
                 mapping_dict = anonymize_file(input_file, output_file, mapping_file, report_id)
-                print(f"  ✅ Anonimleştirildi: {output_file.name}")
-                print(f"  📊 Değiştirme sayısı: {mapping_dict['statistics']['total_replacements']}")
+                print(f"   Anonimleştirildi: {output_file.name}")
+                print(f"   Değiştirme sayısı: {mapping_dict['statistics']['total_replacements']}")
             except Exception as e:
-                print(f"  ❌ Hata: {e}")
+                print(f"   Hata: {e}")
         
         print()
-        print("✅ Batch işleme tamamlandı!")
+        print(" Batch işleme tamamlandı!")
         return
     
     # Tek dosya modu
     input_path = Path(args.input)
     if not input_path.exists():
-        print(f"❌ Girdi dosyası bulunamadı: {input_path}")
+        print(f" Girdi dosyası bulunamadı: {input_path}")
         sys.exit(1)
     
     output_path = Path(args.output)
@@ -359,29 +359,29 @@ def main():
     print("=" * 70)
     print("ANONİMLEŞTİRME")
     print("=" * 70)
-    print(f"📄 Girdi: {input_path}")
-    print(f"📄 Çıktı: {output_path}")
+    print(f" Girdi: {input_path}")
+    print(f" Çıktı: {output_path}")
     if mapping_path:
-        print(f"📄 Mapping: {mapping_path}")
+        print(f" Mapping: {mapping_path}")
     print()
     
     # Anonimleştir
     mapping_dict = anonymize_file(input_path, output_path, mapping_path, args.report_id)
     
     # Sonuçları göster
-    print("✅ Anonimleştirme tamamlandı!")
+    print(" Anonimleştirme tamamlandı!")
     print()
-    print("📊 İstatistikler:")
+    print(" İstatistikler:")
     print(f"   Toplam değiştirme: {mapping_dict['statistics']['total_replacements']}")
     print(f"   Kullanılan pattern'ler: {mapping_dict['statistics']['patterns_used']}")
     print()
-    print("📋 Pattern Dağılımı:")
+    print(" Pattern Dağılımı:")
     for pattern, count in mapping_dict['statistics']['pattern_counts'].items():
         print(f"   {pattern}: {count}")
     print()
     
     if mapping_path:
-        print(f"💾 Mapping dosyası kaydedildi: {mapping_path}")
+        print(f" Mapping dosyası kaydedildi: {mapping_path}")
 
 
 if __name__ == "__main__":

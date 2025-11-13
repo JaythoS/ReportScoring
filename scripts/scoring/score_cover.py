@@ -23,8 +23,8 @@ from core.scoring import find_cover_segment, score_cover_segment
 
 def print_cover_score_details(score_result: dict):
     """Cover skorlama detaylarını yazdır"""
-    print(f"✅ Skorlama tamamlandı!")
-    print(f"   📊 Toplam Puan: {score_result.get('score', 0.0):.2f}/10")
+    print(f" Skorlama tamamlandı!")
+    print(f"    Toplam Puan: {score_result.get('score', 0.0):.2f}/10")
     criteria = score_result.get('criteria', {})
     print(f"   - Başlık Doğruluğu: {criteria.get('title_accuracy', 0.0):.2f}/10")
     print(f"   - Biçim: {criteria.get('format', 0.0):.2f}/10")
@@ -49,14 +49,14 @@ def main():
     pdf_file = find_pdf_file(args.pdf)
     
     if not pdf_file.exists():
-        print(f"❌ PDF dosyası bulunamadı: {pdf_file}")
+        print(f" PDF dosyası bulunamadı: {pdf_file}")
         sys.exit(1)
     
     print("=" * 70)
     print("COVER BÖLÜMÜ NOTLANDIRMA")
     print("=" * 70)
     print()
-    print(f"📄 Rapor: {pdf_file.name}")
+    print(f" Rapor: {pdf_file.name}")
     print()
     
     try:
@@ -64,22 +64,22 @@ def main():
         fixed_data, fixed_file, text = extract_and_segment_pdf(pdf_file)
         
         # Cover segmentini bul
-        print("🔍 Cover segmenti aranıyor...")
+        print(" Cover segmenti aranıyor...")
         print()
         cover_segment = find_cover_segment(fixed_data)
         
         if not cover_segment:
-            print("❌ Cover segmenti bulunamadı!")
+            print(" Cover segmenti bulunamadı!")
             sys.exit(1)
         
-        print(f"✅ Cover segmenti bulundu:")
+        print(f" Cover segmenti bulundu:")
         print(f"   - Section ID: {cover_segment.get('section_id', 'unknown')}")
         print(f"   - Section Name: {cover_segment.get('section_name', 'unknown')}")
         print(f"   - Content uzunluğu: {len(cover_segment.get('content', ''))} karakter")
         print()
         
         # Cover'ı skorla
-        print("📊 Cover skorlanıyor...")
+        print(" Cover skorlanıyor...")
         print()
         score_result = score_cover_segment(cover_segment)
         
@@ -99,15 +99,15 @@ def main():
             timestamp=timestamp
         )
         
-        print(f"✅ Sonuçlar JSON olarak kaydedildi: {result_file.name}")
-        print(f"📁 Tam yol: {result_file}")
+        print(f" Sonuçlar JSON olarak kaydedildi: {result_file.name}")
+        print(f" Tam yol: {result_file}")
         print()
         print("=" * 70)
         print("İŞLEM TAMAMLANDI!")
         print("=" * 70)
         
     except Exception as e:
-        print(f"❌ Hata: {e}")
+        print(f" Hata: {e}")
         import traceback
         traceback.print_exc()
         sys.exit(1)

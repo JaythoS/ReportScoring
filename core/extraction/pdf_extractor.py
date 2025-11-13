@@ -129,10 +129,10 @@ if __name__ == "__main__":
     file_path = sys.argv[1]
     
     try:
-        print(f"📄 Dosya okunuyor: {file_path}")
+        print(f" Dosya okunuyor: {file_path}")
         text = extract_text(file_path)
         
-        print(f"✅ Metin çıkarıldı!")
+        print(f" Metin çıkarıldı!")
         print(f"   Uzunluk: {len(text)} karakter")
         print(f"   Satır sayısı: {len(text.splitlines())}")
         print()
@@ -147,9 +147,9 @@ if __name__ == "__main__":
         output_file = Path(file_path).with_suffix('.txt')
         output_file.write_text(text, encoding='utf-8')
         print()
-        print(f"💾 Tam metin kaydedildi: {output_file}")
+        print(f" Tam metin kaydedildi: {output_file}")
         
     except Exception as e:
-        print(f"❌ Hata: {e}")
+        print(f" Hata: {e}")
         sys.exit(1)
 

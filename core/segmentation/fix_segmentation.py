@@ -1031,62 +1031,62 @@ def fix_segmentation(json_file: Path, original_text: str) -> Dict:
     print()
     
     # 1. Tekrarlanan ID'leri düzelt
-    print("1️⃣ Tekrarlanan ID'ler düzeltiliyor...")
+    print(" Tekrarlanan ID'ler düzeltiliyor...")
     sections = fix_duplicate_ids(sections)
     
     # 2. Executive Summary ve Contents içeriğini düzelt
-    print("2️⃣ Executive Summary ve Contents içeriği düzeltiliyor...")
+    print(" Executive Summary ve Contents içeriği düzeltiliyor...")
     sections = fix_executive_summary_contents(sections, original_text)
     
     # 3. Accountability'yı Professional and Ethical altına taşı
-    print("3️⃣ Accountability parent_id düzeltiliyor...")
+    print(" Accountability parent_id düzeltiliyor...")
     sections = fix_accountability_parent(sections)
     
     # 4. Introduction bölümlerini düzelt
-    print("4️⃣ Introduction bölümleri düzeltiliyor...")
+    print(" Introduction bölümleri düzeltiliyor...")
     sections = fix_introduction_sections(sections)
     
     # 5. Eksik parent_id'leri ekle
-    print("5️⃣ Eksik parent_id'ler ekleniyor...")
+    print(" Eksik parent_id'ler ekleniyor...")
     sections = fix_missing_parents(sections)
     
     # 6. Daily Activities altındaki level'ları düzelt
-    print("6️⃣ Daily Activities level'ları düzeltiliyor...")
+    print(" Daily Activities level'ları düzeltiliyor...")
     sections = fix_daily_activities_levels(sections)
     
     # 6a. Contents bölümünü ekle
-    print("6️⃣a Contents bölümü ekleniyor...")
+    print(" Contents bölümü ekleniyor...")
     sections = fix_contents_section(sections, original_text)
     
     # 6b. Activity yapısını düzelt
-    print("6️⃣b Activity yapısı düzeltiliyor...")
+    print(" Activity yapısı düzeltiliyor...")
     sections = fix_activity_structure(sections)
     
     # 6c. Conclusions yapısını düzelt
-    print("6️⃣c Conclusions yapısı düzeltiliyor...")
+    print(" Conclusions yapısı düzeltiliyor...")
     sections = fix_conclusions_structure(sections)
     
     # 6d. References ve Daily Activities düzeltmeleri
-    print("6️⃣d References ve Daily Activities düzeltiliyor...")
+    print(" References ve Daily Activities düzeltiliyor...")
     sections = fix_references_and_daily_activities(sections, original_text)
     
     # 6e. Conclusions ana başlığını tekrar kontrol et (kısa bölümler birleştirildikten sonra)
-    print("6️⃣e Conclusions ana başlığı kontrol ediliyor...")
+    print(" Conclusions ana başlığı kontrol ediliyor...")
     conclusions_main = next((s for s in sections if s.get('section_id') == 'conclusions_main'), None)
     if not conclusions_main:
         # Eğer yoksa tekrar ekle
         sections = fix_conclusions_structure(sections)
     
     # 7. Kısa bölümleri birleştir
-    print("7️⃣ Kısa bölümler (sayfa numaraları) birleştiriliyor...")
+    print(" Kısa bölümler (sayfa numaraları) birleştiriliyor...")
     sections = merge_short_sections(sections)
     
     # 8. Overlap ve gap'leri düzelt
-    print("8️⃣ Overlap ve gap'ler düzeltiliyor...")
+    print(" Overlap ve gap'ler düzeltiliyor...")
     sections = fix_overlaps_and_gaps(sections, original_text)
     
     # 9. Son kontrol: start_idx/end_idx'leri orijinal metne göre düzelt
-    print("9️⃣ start_idx/end_idx'ler doğrulanıyor...")
+    print(" start_idx/end_idx'ler doğrulanıyor...")
     for sec in sections:
         start = sec.get('start_idx', 0)
         end = sec.get('end_idx', 0)
@@ -1099,35 +1099,35 @@ def fix_segmentation(json_file: Path, original_text: str) -> Dict:
             sec['content'] = original_text[start:]
     
     # 10. Company and Sector'ı tekrar düzelt (overlaps sonrası)
-    print("🔟 Company and Sector içeriği tekrar düzeltiliyor...")
+    print(" Company and Sector içeriği tekrar düzeltiliyor...")
     sections = fix_executive_summary_contents(sections, original_text)
     
     # 11. Contents bölümünü tekrar kontrol et (Company and Sector düzeltmesinden sonra)
-    print("1️⃣1️⃣ Contents bölümü tekrar kontrol ediliyor...")
+    print(" Contents bölümü tekrar kontrol ediliyor...")
     sections = fix_contents_section(sections, original_text)
     
     # 12. Conclusions ana başlığını tekrar kontrol et (son kontroller)
-    print("1️⃣2️⃣ Conclusions ana başlığı tekrar kontrol ediliyor...")
+    print(" Conclusions ana başlığı tekrar kontrol ediliyor...")
     sections = fix_conclusions_structure(sections)
     
     # 13. Activity Analysis altındaki bölümleri düzelt (Level 2 olmalı)
-    print("1️⃣3️⃣ Activity Analysis yapısı düzeltiliyor...")
+    print(" Activity Analysis yapısı düzeltiliyor...")
     sections = fix_activity_analysis_levels(sections)
     
     # 14. Daily Activities tekrarını düzelt
-    print("1️⃣4️⃣ Daily Activities tekrarı düzeltiliyor...")
+    print(" Daily Activities tekrarı düzeltiliyor...")
     sections = fix_duplicate_daily_activities(sections)
     
     # 15. Executive Summary ve Professional Ethical end_idx'lerini düzelt
-    print("1️⃣5️⃣ Executive Summary ve Professional Ethical end_idx düzeltiliyor...")
+    print(" Executive Summary ve Professional Ethical end_idx düzeltiliyor...")
     sections = fix_indices_precision(sections, original_text)
     
     # 16. Conclusions içeriğini genişlet
-    print("1️⃣6️⃣ Conclusions içeriği genişletiliyor...")
+    print(" Conclusions içeriği genişletiliyor...")
     sections = fix_conclusions_content(sections, original_text)
     
     # 17. Minor gaps (100-150 karakter) düzelt
-    print("1️⃣7️⃣ Minor gaps düzeltiliyor...")
+    print(" Minor gaps düzeltiliyor...")
     sections = fix_minor_gaps(sections, original_text, merge_tolerance=30)
     
     # Metadata güncelle
@@ -1160,7 +1160,7 @@ if __name__ == "__main__":
         )[0]
         pdf_file = "data/sample_reports/Doğuş Teknoloji Intern Report LAST.docx .pdf"
     
-    print(f"📄 Dosya: {json_file.name}")
+    print(f" Dosya: {json_file.name}")
     print()
     
     # Orijinal metni oku
@@ -1177,5 +1177,5 @@ if __name__ == "__main__":
     )
     
     print()
-    print(f"✅ Düzeltilmiş dosya kaydedildi: {fixed_file.name}")
+    print(f" Düzeltilmiş dosya kaydedildi: {fixed_file.name}")
 

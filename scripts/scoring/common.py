@@ -81,13 +81,13 @@ def extract_and_segment_pdf(pdf_file: Path) -> tuple[Dict, Path, str]:
         (fixed_segmentation_data, fixed_file_path, original_text) tuple
     """
     # 1. Metni çıkar
-    print("📄 Metin çıkarılıyor...")
+    print(" Metin çıkarılıyor...")
     text = extract_text(str(pdf_file))
-    print(f"✅ Metin çıkarıldı: {len(text):,} karakter")
+    print(f" Metin çıkarıldı: {len(text):,} karakter")
     print()
     
     # 2. Segmentasyon yap
-    print("🔍 Segmentation yapılıyor...")
+    print(" Segmentation yapılıyor...")
     print()
     result_json = segment_text_chunked(text)
     
@@ -105,17 +105,17 @@ def extract_and_segment_pdf(pdf_file: Path) -> tuple[Dict, Path, str]:
     # Segmentasyon dosyasını kaydet
     seg_file = output_dir / f"{safe_name}_Rubric_v3_{timestamp}.json"
     seg_file.write_text(result_json, encoding='utf-8')
-    print(f"✅ Segmentation tamamlandı!")
-    print(f"📁 Dosya kaydedildi: {seg_file.name}")
+    print(f" Segmentation tamamlandı!")
+    print(f" Dosya kaydedildi: {seg_file.name}")
     print()
     
     # Özet bilgi
     sections = seg_data.get('segmentation', {}).get('sections', [])
-    print(f"📊 Toplam bölüm sayısı: {len(sections)}")
+    print(f" Toplam bölüm sayısı: {len(sections)}")
     print()
     
     # 3. Fix segmentation uygula
-    print("🔧 Fix segmentation uygulanıyor...")
+    print(" Fix segmentation uygulanıyor...")
     print()
     fixed_data = fix_segmentation(seg_file, text)
     
@@ -125,7 +125,7 @@ def extract_and_segment_pdf(pdf_file: Path) -> tuple[Dict, Path, str]:
         json.dumps(fixed_data, ensure_ascii=False, indent=2),
         encoding='utf-8'
     )
-    print(f"✅ Düzeltilmiş dosya kaydedildi: {fixed_file.name}")
+    print(f" Düzeltilmiş dosya kaydedildi: {fixed_file.name}")
     print()
     
     return fixed_data, fixed_file, text

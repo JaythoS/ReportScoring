@@ -98,14 +98,14 @@ def run_segmentation(text: str, report_id: str) -> Optional[Path]:
         from llm.tools.validate_segmentation import validate_segmentation
         from llm.tools.validate_segmentation import print_validation_report
     except ImportError:
-        log("⚠️  Segmentasyon modülleri yüklenemedi. Bu adım atlanacak.")
+        log("  Segmentasyon modülleri yüklenemedi. Bu adım atlanacak.")
         return None
 
     log("🔍 Segmentasyon başlatılıyor...")
     try:
         result_json = segment_text_chunked(text)
     except Exception as exc:
-        log(f"❌ Segmentasyon başarısız: {exc}")
+        log(f" Segmentasyon başarısız: {exc}")
         return None
 
     segmentation_dir = PROJECT_ROOT / "data" / "processed" / "segmentations"
@@ -114,19 +114,19 @@ def run_segmentation(text: str, report_id: str) -> Optional[Path]:
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     segmentation_path = segmentation_dir / f"{report_id}_segmentation_{timestamp}.json"
     segmentation_path.write_text(result_json, encoding="utf-8")
-    log(f"✅ Segmentasyon çıktısı kaydedildi: {segmentation_path}")
+    log(f" Segmentasyon çıktısı kaydedildi: {segmentation_path}")
 
     # Fix segmentation
     try:
         fixed_data = fix_segmentation(segmentation_path, text)
         fixed_path = segmentation_path.with_suffix('.fixed.json')
         fixed_path.write_text(json.dumps(fixed_data, ensure_ascii=False, indent=2), encoding="utf-8")
-        log(f"✅ Düzeltilmiş segmentasyon: {fixed_path}")
+        log(f" Düzeltilmiş segmentasyon: {fixed_path}")
 
         validation_result = validate_segmentation(fixed_path)
         print_validation_report(validation_result)
     except Exception as exc:
-        log(f"⚠️  Segmentasyon düzeltme/validasyon hatası: {exc}")
+        log(f"  Segmentasyon düzeltme/validasyon hatası: {exc}")
 
     return segmentation_path
 
@@ -154,10 +154,10 @@ def main() -> None:
     text_path = Path(args.text).resolve() if args.text else None
 
     if pdf_path and not pdf_path.exists():
-        log(f"❌ PDF dosyası bulunamadı: {pdf_path}")
+        log(f" PDF dosyası bulunamadı: {pdf_path}")
         sys.exit(1)
     if text_path and not text_path.exists():
-        log(f"❌ Metin dosyası bulunamadı: {text_path}")
+        log(f" Metin dosyası bulunamadı: {text_path}")
         sys.exit(1)
 
     report_id = args.report_id
@@ -170,11 +170,11 @@ def main() -> None:
     log("=" * 70)
     log("TAM PIPELINE")
     log("=" * 70)
-    log(f"📄 Rapor ID: {report_id}")
+    log(f" Rapor ID: {report_id}")
     if pdf_path:
-        log(f"📁 PDF: {pdf_path}")
+        log(f" PDF: {pdf_path}")
     if text_path:
-        log(f"📄 Metin: {text_path}")
+        log(f" Metin: {text_path}")
     log("")
 
     # 1) Metin çıkarımı
@@ -182,43 +182,43 @@ def main() -> None:
     saved_text_path = None
 
     if pdf_path:
-        log("📄 PDF metin çıkarımı yapılıyor...")
+        log(" PDF metin çıkarımı yapılıyor...")
         try:
             extracted_text = extract_text_from_pdf(pdf_path)
-            log(f"✅ Metin çıkarıldı: {len(extracted_text):,} karakter")
+            log(f" Metin çıkarıldı: {len(extracted_text):,} karakter")
         except Exception as exc:
-            log(f"❌ Metin çıkarma hatası: {exc}")
+            log(f" Metin çıkarma hatası: {exc}")
             sys.exit(1)
     else:
         extracted_text = text_path.read_text(encoding="utf-8")
 
     # 2) Metni kaydet
     saved_text_path = save_text(report_id, extracted_text)
-    log(f"💾 Metin kaydedildi: {saved_text_path}")
+    log(f" Metin kaydedildi: {saved_text_path}")
 
     # 3) Anonimleştirme
     anonymization_result = None
     if not args.skip_anonymization:
-        log("🔐 Anonimleştirme çalıştırılıyor...")
+        log(" Anonimleştirme çalıştırılıyor...")
         anonymization_result = run_anonymization(
             text_path=saved_text_path,
             report_id=report_id,
             save_mapping=not args.no_mapping,
         )
-        log(f"✅ Anonimleştirilmiş metin: {anonymization_result['anonymized_text']}")
+        log(f" Anonimleştirilmiş metin: {anonymization_result['anonymized_text']}")
         if anonymization_result["mapping_file"]:
-            log(f"💾 Mapping dosyası: {anonymization_result['mapping_file']}")
+            log(f" Mapping dosyası: {anonymization_result['mapping_file']}")
 
     # 4) Segmentasyon (opsiyonel)
     if args.skip_segmentation:
-        log("⏭️  Segmentasyon adımı kullanıcı isteğiyle atlandı.")
+        log("  Segmentasyon adımı kullanıcı isteğiyle atlandı.")
     else:
         segmentation_path = run_segmentation(extracted_text, report_id)
         if segmentation_path:
-            log(f"📄 Segmentasyon çıktısı: {segmentation_path}")
+            log(f" Segmentasyon çıktısı: {segmentation_path}")
 
     log("")
-    log("✅ Pipeline tamamlandı!")
+    log(" Pipeline tamamlandı!")
 
     # Özet
     summary = {
@@ -227,7 +227,7 @@ def main() -> None:
         "anonymized_text": str(anonymization_result["anonymized_text"]) if anonymization_result else None,
         "mapping_file": str(anonymization_result["mapping_file"]) if anonymization_result and anonymization_result["mapping_file"] else None,
     }
-    log("📊 Özet:")
+    log(" Özet:")
     for key, value in summary.items():
         log(f"   {key}: {value}")
 

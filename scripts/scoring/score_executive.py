@@ -23,8 +23,8 @@ from core.scoring import find_executive_summary_segment, score_executive_summary
 
 def print_executive_score_details(score_result: dict):
     """Executive Summary skorlama detaylarını yazdır"""
-    print(f"✅ Skorlama tamamlandı!")
-    print(f"   📊 Toplam Puan: {score_result.get('score', 0.0):.2f}/10")
+    print(f" Skorlama tamamlandı!")
+    print(f"    Toplam Puan: {score_result.get('score', 0.0):.2f}/10")
     criteria = score_result.get('criteria', {})
     print(f"   - Ana Mühendislik Faaliyetleri: {criteria.get('main_engineering_activities', 0.0):.2f}/10")
     print(f"   - Ana Staj Faaliyetleri: {criteria.get('major_internship_activities', 0.0):.2f}/10")
@@ -50,14 +50,14 @@ def main():
     pdf_file = find_pdf_file(args.pdf)
     
     if not pdf_file.exists():
-        print(f"❌ PDF dosyası bulunamadı: {pdf_file}")
+        print(f" PDF dosyası bulunamadı: {pdf_file}")
         sys.exit(1)
     
     print("=" * 70)
     print("EXECUTIVE SUMMARY BÖLÜMÜ NOTLANDIRMA")
     print("=" * 70)
     print()
-    print(f"📄 Rapor: {pdf_file.name}")
+    print(f" Rapor: {pdf_file.name}")
     print()
     
     try:
@@ -65,22 +65,22 @@ def main():
         fixed_data, fixed_file, text = extract_and_segment_pdf(pdf_file)
         
         # Executive Summary segmentini bul
-        print("🔍 Executive Summary segmenti aranıyor...")
+        print(" Executive Summary segmenti aranıyor...")
         print()
         executive_segment = find_executive_summary_segment(fixed_data)
         
         if not executive_segment:
-            print("❌ Executive Summary segmenti bulunamadı!")
+            print(" Executive Summary segmenti bulunamadı!")
             sys.exit(1)
         
-        print(f"✅ Executive Summary segmenti bulundu:")
+        print(f" Executive Summary segmenti bulundu:")
         print(f"   - Section ID: {executive_segment.get('section_id', 'unknown')}")
         print(f"   - Section Name: {executive_segment.get('section_name', 'unknown')}")
         print(f"   - Content uzunluğu: {len(executive_segment.get('content', ''))} karakter")
         print()
         
         # Executive Summary'yi skorla
-        print("📊 Executive Summary skorlanıyor...")
+        print(" Executive Summary skorlanıyor...")
         print()
         score_result = score_executive_summary(executive_segment)
         
@@ -100,15 +100,15 @@ def main():
             timestamp=timestamp
         )
         
-        print(f"✅ Sonuçlar JSON olarak kaydedildi: {result_file.name}")
-        print(f"📁 Tam yol: {result_file}")
+        print(f" Sonuçlar JSON olarak kaydedildi: {result_file.name}")
+        print(f" Tam yol: {result_file}")
         print()
         print("=" * 70)
         print("İŞLEM TAMAMLANDI!")
         print("=" * 70)
         
     except Exception as e:
-        print(f"❌ Hata: {e}")
+        print(f" Hata: {e}")
         import traceback
         traceback.print_exc()
         sys.exit(1)

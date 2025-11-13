@@ -223,7 +223,7 @@ def main():
     # API key
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
-        print("❌ GEMINI_API_KEY environment variable ayarlanmamış!")
+        print(" GEMINI_API_KEY environment variable ayarlanmamış!")
         sys.exit(1)
     
     print("=" * 80)
@@ -234,11 +234,11 @@ def main():
     # Excel dosyasını yükle
     excel_path = project_root / "data" / "ie_drive " / "Book1.xlsx"
     if not excel_path.exists():
-        print(f"❌ Excel dosyası bulunamadı: {excel_path}")
+        print(f" Excel dosyası bulunamadı: {excel_path}")
         sys.exit(1)
     
     real_scores_df = load_real_scores(excel_path)
-    print(f"✅ Excel dosyası yüklendi: {len(real_scores_df)} öğrenci")
+    print(f" Excel dosyası yüklendi: {len(real_scores_df)} öğrenci")
     print()
     
     # ie_drive klasörü
@@ -249,7 +249,7 @@ def main():
     if args.limit:
         students = students.head(args.limit)
     
-    print(f"🧪 {len(students)} öğrenci notlandırılacak")
+    print(f" {len(students)} öğrenci notlandırılacak")
     print()
     
     # Mevcut sonuçları yükle (eğer varsa)
@@ -260,7 +260,7 @@ def main():
             existing_data = json.load(f)
             existing_results = existing_data.get("results", [])
             existing_ids = {r["student_id"] for r in existing_results if r.get("status") == "success"}
-            print(f"📋 {len(existing_ids)} öğrenci zaten notlandırılmış, atlanacak")
+            print(f" {len(existing_ids)} öğrenci zaten notlandırılmış, atlanacak")
             print()
     
     results = existing_results.copy()
@@ -318,7 +318,7 @@ def main():
     print("=" * 80)
     print("SONUÇLAR KAYDEDİLDİ")
     print("=" * 80)
-    print(f"📁 Dosya: {results_file}")
+    print(f" Dosya: {results_file}")
     print()
     
     # Gerçek notlarla karşılaştır
@@ -333,8 +333,8 @@ def main():
         avg_error = comparison_df["error"].mean()
         avg_error_pct = comparison_df["error_percentage"].mean()
         
-        print(f"✅ Başarılı karşılaştırma: {len(comparison_df)}/{len(results)}")
-        print(f"📊 Ortalama hata: {avg_error:.2f} puan ({avg_error_pct:.1f}%)")
+        print(f" Başarılı karşılaştırma: {len(comparison_df)}/{len(results)}")
+        print(f" Ortalama hata: {avg_error:.2f} puan ({avg_error_pct:.1f}%)")
         print()
         
         # İstatistikler
@@ -354,7 +354,7 @@ def main():
         # CSV olarak kaydet
         csv_file = project_root / "outputs" / "comparison_results.csv"
         comparison_df.to_csv(csv_file, index=False, encoding='utf-8')
-        print(f"\n✅ Karşılaştırma sonuçları CSV olarak kaydedildi: {csv_file}")
+        print(f"\n Karşılaştırma sonuçları CSV olarak kaydedildi: {csv_file}")
     
     print()
     print("=" * 80)

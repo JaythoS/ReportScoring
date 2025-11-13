@@ -23,15 +23,19 @@ def render_results():
         st.warning("Analiz tamamlandı ama bölüm verisi boş görünüyor.")
         return
 
-    total_score = data.get("total", 0.0)
+    total_score = sum(sec.get("score", 0) for sec in data.get("sections", []))
+
+    # Ortalama progress için
+    avg_score = total_score / len(data.get("sections", []))
+    percent = int((avg_score / 10) * 100)
 
     # --- Genel skor + progress ---
     st.markdown("###  Genel Skor")
     c1, c2 = st.columns([1, 5])
     with c1:
-        st.metric("Toplam Ortalama", f"{total_score:.2f}")
+        st.metric("Toplam Skor", f"{total_score:.2f}")
     with c2:
-        st.progress(int((total_score / 10) * 100), text=f"Genel Uyum: %{int((total_score / 10) * 100)}")
+        st.progress(percent, text=f"Genel Uyum: %{percent}")
 
     # --- Bölüm tablosu ---
     df = pd.DataFrame(data["sections"])

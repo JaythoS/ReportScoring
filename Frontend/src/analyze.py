@@ -1,49 +1,36 @@
-from __future__ import annotations
-from dataclasses import dataclass, asdict
-from typing import List, Dict, Any
-import random
+import time
+from Frontend.src.mock_data import MOCK_ANALYSIS
 
-@dataclass
-class SectionScore:
-    name: str
-    score: float
-    evidence: str
-    suggestion: str
 
-@dataclass
-class AnalysisResult:
-    sections: List[SectionScore]
-    total: float
+def run_mock_analysis(file_bytes=None):
+    """
+    Mock analiz işlemi.
+    Gerçekte LLM çağrısı burada olacak.
+    Şimdilik sabit MOCK_ANALYSIS döndürür.
+    """
+    # Simülasyon amaçlı bekleme
+    for _ in range(3):
+        time.sleep(0.4)
+    return MOCK_ANALYSIS
 
-RUBRIC = [
-    ("Introduction", "Amaç cümlesi ve problem tanımı."),
-    ("Method", "Yöntem açık, örneklem ve araçlar tanımlı."),
-    ("Results", "Bulgular net, tablo/grafik uygun."),
-    ("Conclusion", "Kısıtlar ve gelecek iş tanımlı.")
-]
 
-SUGGESTIONS = {
-    "Introduction": "Amaç cümlesini netleştir ve kapsamı belirt.",
-    "Method": "Örneklem büyüklüğü ve ölçüm araçlarını ekle.",
-    "Results": "Grafiklere eksen/etiket ekle.",
-    "Conclusion": "Kısıtlar ve gelecekteki çalışmalar ekle."
-}
+def to_dict(result):
+    """
+    Sonuç sözlüğünü normalize eder.
+    (İleride backend’den gelen response’ları da bu formatta işleriz.)
+    """
+    if not isinstance(result, dict):
+        return {
+            "total": 0.0,
+            "sections": []
+        }
 
-def run_mock_analysis(text: str | None) -> AnalysisResult:
-    # Basit rastgele puanlayıcı (demo)
-    sections = []
-    total = 0.0
-    for name, hint in RUBRIC:
-        score = round(random.uniform(6.5, 8.5), 1)
-        total += score
-        evidence = f"Metinden alıntı: ... ({name})"
-        suggestion = SUGGESTIONS.get(name, "Metni güçlendir.")
-        sections.append(SectionScore(name=name, score=score, evidence=evidence, suggestion=suggestion))
-    total = round(total / len(RUBRIC), 2)
-    return AnalysisResult(sections=sections, total=total)
+    # total yoksa ortalama hesapla
+    if "total" not in result and "sections" in result:
+        scores = [s.get("score", 0) for s in result["sections"]]
+        result["total"] = round(sum(scores) / len(scores), 2) if scores else 0.0
 
-def to_dict(result: AnalysisResult) -> Dict[str, Any]:
     return {
-        "sections": [asdict(s) for s in result.sections],
-        "total": result.total
+        "total": result.get("total", 0.0),
+        "sections": result.get("sections", [])
     }

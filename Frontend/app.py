@@ -17,8 +17,8 @@ st.set_page_config(page_title="Rapor Değerlendirme", layout="wide")
 inject_global_styles()
 
 # Başlık
-st.title(" Bitirme • Rapor Değerlendirme Arayüzü")
-st.caption("Upload → Analiz → Sonuçlar → Dashboard → Geçmiş")
+st.title(" Bitirme - Rapor Değerlendirme Arayüzü")
+st.caption("") #GERİ DÖN
 
 # Session state başlangıçları
 if "job_done" not in st.session_state:
@@ -50,4 +50,4 @@ with tab3:
 
 # Footer
 st.markdown("---")
-st.caption("© 2025 Bitirme Projesi • FE by Umut & Helin")
+st.caption("© 2025 Bitirme Projesi")

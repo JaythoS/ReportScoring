@@ -18,7 +18,7 @@ MODEL_NAME = "gemini-2.0-flash"
 def load_cover_prompt() -> str:
     """Cover scoring için LLM prompt şablonunu yükle"""
     project_root = Path(__file__).resolve().parents[2]
-    prompt_path = project_root / "llm" / "prompts" / "cover_scoring.json.txt"
+    prompt_path = project_root / "core" / "prompts" / "cover_scoring.json.txt"
     
     if not prompt_path.exists():
         raise FileNotFoundError(f"Prompt dosyası bulunamadı: {prompt_path}")
@@ -29,7 +29,7 @@ def load_cover_prompt() -> str:
 def load_executive_prompt() -> str:
     """Executive Summary scoring için LLM prompt şablonunu yükle"""
     project_root = Path(__file__).resolve().parents[2]
-    prompt_path = project_root / "llm" / "prompts" / "executive_scoring.json.txt"
+    prompt_path = project_root / "core" / "prompts" / "executive_scoring.json.txt"
     
     if not prompt_path.exists():
         raise FileNotFoundError(f"Prompt dosyası bulunamadı: {prompt_path}")

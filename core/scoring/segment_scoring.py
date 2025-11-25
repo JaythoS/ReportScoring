@@ -160,11 +160,9 @@ def _call_llm_for_scoring(prompt_template: str, segment: Dict, api_key: str = No
             # JSON parse
             result = json.loads(output_text)
             
-            # Validasyon: gerekli alanlar var mı?
+            # En azından score alanı olmalı
             if "score" not in result:
                 raise ValueError("LLM çıktısında 'score' alanı bulunamadı")
-            if "criteria" not in result:
-                raise ValueError("LLM çıktısında 'criteria' alanı bulunamadı")
             
             return result
             
@@ -224,19 +222,37 @@ def score_executive_summary(segment: Dict, api_key: str = None) -> Dict:
         
     Returns:
         {
-            "score": float,  # Toplam puan (0-10)
-            "feedback": str,  # Detaylı geri bildirim
+            "score": int,  # Rubrik seviyesi (0,20,...,100)
+            "rationale": str,
+            "evidence_specificity": int,
+            "fine": {...},
             "criteria": {
-                "main_engineering_activities": float,  # Ana mühendislik faaliyetleri (0-10)
-                "major_internship_activities": float,  # Ana staj faaliyetleri (0-10)
-                "expectations_and_outcomes": float,    # Beklentiler ve sonuçlar (0-10)
-                "learning_and_benefits": float,       # Öğrenilenler ve faydalar (0-10)
-                "reader_engagement": float             # Okuyucu ilgisi (0-10)
+                "executive_summary_b1": int
             }
         }
     """
     prompt_template = load_executive_prompt()
-    return _call_llm_for_scoring(prompt_template, segment, api_key)
+    raw_result = _call_llm_for_scoring(prompt_template, segment, api_key)
+    
+    rubric_score = int(raw_result.get("score", 0))
+    score_0_10 = rubric_score / 10.0
+    rationale = raw_result.get("rationale", "")
+    fine = raw_result.get("fine", {})
+    evidence_specificity = raw_result.get("evidence_specificity")
+    
+    # Eski çağıranlar için geri uyumluluk: criteria dict'i tek değerle doldur
+    result = {
+        "score": score_0_10,
+        "rubric_score": rubric_score,
+        "rationale": rationale,
+        "fine": fine,
+        "evidence_specificity": evidence_specificity,
+        "feedback": rationale,
+        "criteria": {
+            "executive_summary_b1": score_0_10
+        }
+    }
+    return result
 
 
 # Geriye dönük uyumluluk için eski fonksiyon adları

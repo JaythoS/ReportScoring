@@ -8,8 +8,50 @@ Segmentation çıktısındaki sorunları düzelt
 import json
 from pathlib import Path
 from collections import Counter
-from typing import Dict, List
+from typing import Dict, List, Tuple
 from datetime import datetime
+
+FORMAT_SECTION_KEYWORDS = [
+    "cover",
+    "contents",
+    "table of contents",
+    "içindekiler",
+    "reference",
+    "bibliography",
+    "appendix",
+    "internship document",
+    "checklist",
+    "signature",
+    "acknowledgement",
+]
+
+ACTIVITY_LEVEL1_KEYWORDS = [
+    "activity analysis",
+    "summer practice description",
+    "summer practice report",
+    "project overview",
+]
+
+ACTIVITY_CHILD_KEYWORDS = [
+    "activity",
+    "project",
+    "development",
+    "implementation",
+    "solution",
+    "problem",
+    "analysis",
+    "process",
+]
+
+DAY_KEYWORDS = ["day ", "day_", "day-"]
+
+CONCLUSION_KEYWORDS = ["conclusion"]
+
+IMPACT_KEYWORDS = ["impact"]
+TEAMWORK_KEYWORDS = ["team work", "teamwork"]
+SDL_KEYWORDS = ["self-directed", "self directed", "self learning"]
+
+B9_KEYWORDS = FORMAT_SECTION_KEYWORDS + ["format and organisation", "format & organisation"]
 
 
 def fix_duplicate_ids(sections: List[Dict]) -> List[Dict]:
@@ -398,6 +440,226 @@ def fix_introduction_sections(sections: List[Dict]) -> List[Dict]:
                     sec['level'] = 3
     
     return sections
+
+
+def _normalized_name(section: Dict) -> str:
+    return " ".join(((section.get('section_name') or '').lower()).split())
+
+
+def _find_previous_section(sections: List[Dict], start_index: int, predicate) -> Tuple[int, Dict]:
+    for j in range(start_index, -1, -1):
+        candidate = sections[j]
+        if predicate(candidate):
+            return j, candidate
+    return -1, None
+
+
+def ensure_level1_format_sections(sections: List[Dict]) -> List[Dict]:
+    """Cover/Contents/References gibi Format & Organisation bölümlerini Level 1'e zorla."""
+    for sec in sections:
+        normalized = _normalized_name(sec)
+        if any(keyword in normalized for keyword in FORMAT_SECTION_KEYWORDS):
+            sec['level'] = 1
+            sec['parent_id'] = None
+    return sections
+
+
+def ensure_professional_ethical_parent(sections: List[Dict]) -> List[Dict]:
+    """Professional & Ethical Responsibilities bölümlerini Company & Sector altında tut."""
+    company_ids = [
+        sec.get('section_id')
+        for sec in sections
+        if 'company and sector' in _normalized_name(sec) or sec.get('section_id', '').startswith('company_sector')
+    ]
+    if not company_ids:
+        return sections
+    for idx, sec in enumerate(sections):
+        normalized = _normalized_name(sec)
+        if 'professional' in normalized and 'ethical' in normalized:
+            # En yakın önceki Company & Sector bölümünü bul
+            _, parent_sec = _find_previous_section(
+                sections, idx, lambda s: s.get('section_id') in company_ids
+            )
+            parent_id = parent_sec.get('section_id') if parent_sec else company_ids[0]
+            sec['parent_id'] = parent_id
+            sec['level'] = 2
+    return sections
+
+
+def ensure_activity_hierarchy(sections: List[Dict]) -> List[Dict]:
+    """Activity Analysis / Project (B4) altındaki hiyerarşiyi düzelt."""
+    activity_sections = []
+    for idx, sec in enumerate(sections):
+        normalized = _normalized_name(sec)
+        if any(keyword in normalized for keyword in ACTIVITY_LEVEL1_KEYWORDS) or sec.get('section_id', '').startswith('activity_analysis'):
+            activity_sections.append((idx, sec))
+    if not activity_sections:
+        return sections
+
+    def nearest_activity(index: int) -> Dict:
+        for act_idx, act_sec in reversed(activity_sections):
+            if act_idx <= index:
+                return act_sec
+        return activity_sections[0][1]
+
+    for idx, sec in enumerate(sections):
+        normalized = _normalized_name(sec)
+        sec_id = sec.get('section_id', '')
+        if 'daily activit' in normalized:
+            parent = nearest_activity(idx)
+            sec['parent_id'] = parent.get('section_id')
+            sec['level'] = 2
+            continue
+        if any(normalized.startswith(prefix) for prefix in DAY_KEYWORDS) or normalized.startswith('day '):
+            # Gün başlıkları önce Daily Activities bölümünü, yoksa Activity Analysis'i parent alır
+            _, daily_parent = _find_previous_section(
+                sections,
+                idx,
+                lambda s: 'daily activit' in _normalized_name(s) and s.get('parent_id') == nearest_activity(idx).get('section_id')
+            )
+            parent = daily_parent.get('section_id') if daily_parent else nearest_activity(idx).get('section_id')
+            sec['parent_id'] = parent
+            sec['level'] = 3 if daily_parent else 2
+            continue
+        if any(keyword in normalized for keyword in ACTIVITY_CHILD_KEYWORDS) and sec.get('level', 1) == 1 and not normalized.startswith('activity analysis'):
+            parent = nearest_activity(idx)
+            sec['parent_id'] = parent.get('section_id')
+            sec['level'] = 2
+    return sections
+
+
+def ensure_conclusion_children(sections: List[Dict]) -> List[Dict]:
+    """Impact/Team Work/Self-Directed Learning bölümlerini Conclusions altına bağla."""
+    conclusion_sections = [
+        (idx, sec)
+        for idx, sec in enumerate(sections)
+        if any(keyword in _normalized_name(sec) for keyword in CONCLUSION_KEYWORDS) or sec.get('section_id', '').startswith('conclusion')
+    ]
+    if not conclusion_sections:
+        return sections
+
+    def nearest_conclusion(index: int) -> Dict:
+        for con_idx, con_sec in reversed(conclusion_sections):
+            if con_idx <= index:
+                return con_sec
+        return conclusion_sections[0][1]
+
+    def assign_parent(sec: Dict, index: int, level: int = 2):
+        parent = nearest_conclusion(index)
+        sec['parent_id'] = parent.get('section_id')
+        sec['level'] = level
+
+    for idx, sec in enumerate(sections):
+        normalized = _normalized_name(sec)
+        if any(keyword in normalized for keyword in IMPACT_KEYWORDS):
+            assign_parent(sec, idx)
+        elif any(keyword in normalized for keyword in TEAMWORK_KEYWORDS):
+            assign_parent(sec, idx)
+        elif any(keyword in normalized for keyword in SDL_KEYWORDS):
+            assign_parent(sec, idx)
+    return sections
+
+
+def apply_rubric_hierarchy_fixes(sections: List[Dict]) -> List[Dict]:
+    """Toplu olarak rubrik hiyerarşisi düzeltmeleri uygula."""
+    sections = ensure_level1_format_sections(sections)
+    sections = ensure_professional_ethical_parent(sections)
+    sections = ensure_activity_hierarchy(sections)
+    sections = ensure_conclusion_children(sections)
+    return sections
+
+
+def summarize_rubric_coverage(sections: List[Dict]) -> Dict[str, bool]:
+    """B1-B9 kriterlerinin hangi bölümlerle temsil edildiğini döndür."""
+    coverage = {
+        "B1": False,
+        "B2": False,
+        "B3": False,
+        "B4": False,
+        "B5": False,
+        "B6": False,
+        "B7": False,
+        "B8": False,
+        "B9": False,
+    }
+    for sec in sections:
+        normalized = _normalized_name(sec)
+        if not coverage["B1"] and "executive summary" in normalized:
+            coverage["B1"] = True
+        if not coverage["B2"] and "company and sector" in normalized:
+            coverage["B2"] = True
+        if not coverage["B3"] and "professional" in normalized and "ethical" in normalized:
+            coverage["B3"] = True
+        if not coverage["B4"] and ("activity analysis" in normalized or "summer practice description" in normalized):
+            coverage["B4"] = True
+        if not coverage["B5"] and "conclusion" in normalized:
+            coverage["B5"] = True
+        if not coverage["B6"] and "impact" in normalized:
+            coverage["B6"] = True
+        team_normalized = normalized.replace("teamwork", "team work")
+        if not coverage["B7"] and "team work" in team_normalized:
+            coverage["B7"] = True
+        if not coverage["B8"] and ("self-directed" in normalized or "self directed" in normalized or "self learning" in normalized):
+            coverage["B8"] = True
+        if not coverage["B9"] and any(keyword in normalized for keyword in B9_KEYWORDS):
+            coverage["B9"] = True
+    return coverage
+
+
+def detect_hierarchy_violations(sections: List[Dict]) -> List[str]:
+    """Rubrik hiyerarşisini bozan durumları (yanlış parent vb.) raporla."""
+    warnings = []
+    id_map = {sec.get('section_id'): sec for sec in sections if sec.get('section_id')}
+
+    def _parent_normalized(sec: Dict) -> str:
+        parent_id = sec.get('parent_id')
+        if not parent_id:
+            return ""
+        parent = id_map.get(parent_id)
+        return _normalized_name(parent)
+
+    # B3: Professional & Ethical Responsibilities must live under Company & Sector
+    for sec in sections:
+        normalized = _normalized_name(sec)
+        if 'professional' in normalized and 'ethical' in normalized:
+            parent_norm = _parent_normalized(sec)
+            if not parent_norm or 'company and sector' not in parent_norm:
+                warnings.append("Professional & Ethical Responsibilities bölümü Company & Sector altında değil.")
+            break
+
+    # B6/B7/B8: Impact, Team Work, Self-Directed Learning must live under Conclusions
+    def _ensure_conclusion_parent(keyword: str, label: str):
+        for sec in sections:
+            normalized = _normalized_name(sec)
+            if keyword in normalized:
+                parent_norm = _parent_normalized(sec)
+                if not parent_norm or 'conclusion' not in parent_norm:
+                    warnings.append(f"{label} bölümü Conclusions altında değil.")
+                break
+
+    _ensure_conclusion_parent('impact', 'Impact')
+    _ensure_conclusion_parent('team work', 'Team Work')
+    _ensure_conclusion_parent('self-directed', 'Self-Directed Learning')
+
+    # Daily Activities cannot be Level-1
+    for sec in sections:
+        normalized = _normalized_name(sec)
+        if 'daily activities' in normalized and sec.get('level', 1) == 1:
+            warnings.append("Daily Activities Level-1 olarak işaretlenmiş (Activity Analysis altına taşınmalı).")
+            break
+
+    return warnings
+
+
+def build_rubric_metadata(sections: List[Dict]) -> Tuple[Dict[str, bool], List[str]]:
+    """Coverage + hiyerarşi uyarılarını döndür."""
+    coverage = summarize_rubric_coverage(sections)
+    warnings = []
+    missing = [rubric_id for rubric_id, present in coverage.items() if not present]
+    if missing:
+        warnings.append(f"Eksik rubrik bölümleri: {', '.join(sorted(missing))}")
+    warnings.extend(detect_hierarchy_violations(sections))
+    return coverage, warnings
 
 
 def fix_daily_activities_levels(sections: List[Dict]) -> List[Dict]:
@@ -1130,11 +1392,19 @@ def fix_segmentation(json_file: Path, original_text: str) -> Dict:
     print(" Minor gaps düzeltiliyor...")
     sections = fix_minor_gaps(sections, original_text, merge_tolerance=30)
     
+    coverage, coverage_warnings = build_rubric_metadata(sections)
+
     # Metadata güncelle
     if 'source_metadata' not in data:
         data['source_metadata'] = {}
     data['source_metadata']['fixed'] = True
     data['source_metadata']['fix_timestamp'] = datetime.now().isoformat()
+    data['source_metadata']['rubric_coverage'] = coverage
+    if coverage_warnings:
+        warnings_list = data['source_metadata'].setdefault('warnings', [])
+        for warning in coverage_warnings:
+            if warning not in warnings_list:
+                warnings_list.append(warning)
     
     # Sections'ı güncelle
     data['segmentation']['sections'] = sections

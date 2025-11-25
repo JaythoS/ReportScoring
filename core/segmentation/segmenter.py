@@ -10,14 +10,115 @@ import re
 from pathlib import Path
 from datetime import datetime
 import google.generativeai as genai
-# Eski import'ları llm/tools'tan al (backward compatibility)
-import sys
-from pathlib import Path
-project_root = Path(__file__).resolve().parents[3]
-sys.path.insert(0, str(project_root))
-from llm.tools.gemini_segment import load_prompt, _extract_text, _repair_json, MODEL_NAME
 from dotenv import load_dotenv
 load_dotenv()
+
+# Model ve prompt yükleme
+MODEL_NAME = "gemini-2.0-flash"
+
+def load_prompt() -> str:
+    """Segmentation prompt şablonunu yükle"""
+    project_root = Path(__file__).resolve().parents[2]
+    prompt_path = project_root / "llm" / "prompts" / "segmentation.json.txt"
+    
+    if not prompt_path.exists():
+        raise FileNotFoundError(f"Prompt dosyası bulunamadı: {prompt_path}")
+    
+    return prompt_path.read_text(encoding="utf-8")
+
+
+def _extract_text(resp) -> str:
+    """Gemini yanıtından metni güvenli biçimde çıkar"""
+    if not resp:
+        return ""
+    if getattr(resp, "text", None):
+        return resp.text
+    try:
+        parts = []
+        for c in getattr(resp, "candidates", []) or []:
+            for part in getattr(c, "content", {}).parts or []:
+                if getattr(part, "text", None):
+                    parts.append(part.text)
+        return "".join(parts)
+    except Exception:
+        return ""
+
+
+def _repair_json(json_str: str) -> str:
+    """JSON string'i onarmaya çalış (basit hataları düzelt)"""
+    if not json_str:
+        return json_str
+    
+    # Markdown temizleme
+    if "```json" in json_str:
+        start = json_str.find("```json") + 7
+        end = json_str.find("```", start)
+        if end != -1:
+            json_str = json_str[start:end].strip()
+    elif "```" in json_str:
+        start = json_str.find("```") + 3
+        end = json_str.find("```", start)
+        if end != -1:
+            json_str = json_str[start:end].strip()
+    
+    # Trailing comma temizleme (basit)
+    json_str = re.sub(r',\s*}', '}', json_str)
+    json_str = re.sub(r',\s*]', ']', json_str)
+    
+    return json_str
+
+
+def segment_text(text: str, api_key: str = None) -> str:
+    """Tek chunk için segmentasyon yap (chunked olmayan kısa metinler için)"""
+    api_key = api_key or os.getenv("GEMINI_API_KEY", "")
+    if not api_key:
+        raise RuntimeError("GEMINI_API_KEY is not set")
+    
+    genai.configure(api_key=api_key)
+    model = genai.GenerativeModel(
+        MODEL_NAME,
+        generation_config={
+            "temperature": 0,
+            "response_mime_type": "application/json"
+        },
+    )
+    
+    prompt = load_prompt().format(TEXT=text, SOURCE_LEN=len(text))
+    
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            resp = model.generate_content(prompt)
+            output = _extract_text(resp).strip()
+            
+            if not output:
+                raise RuntimeError("Boş yanıt döndü")
+            
+            # Model çıktısını temizle
+            output = clean_model_output(output)
+            
+            # JSON parse et
+            try:
+                data = json.loads(output)
+            except json.JSONDecodeError:
+                # Repair dene
+                repaired = _repair_json(output)
+                data = json.loads(repaired)
+            
+            return json.dumps(data, ensure_ascii=False, indent=2)
+            
+        except Exception as e:
+            if "429" in str(e) or "Resource exhausted" in str(e):
+                if attempt < max_retries - 1:
+                    time.sleep(5 * (attempt + 1))
+                    continue
+                else:
+                    raise RuntimeError(f"Rate limit hatası: {e}")
+            else:
+                if attempt < max_retries - 1:
+                    time.sleep(2)
+                    continue
+                raise
 
 
 # Chunking parametreleri
@@ -385,7 +486,6 @@ def segment_text_chunked(text: str, api_key: str = None) -> str:
     
     if len(chunks) == 1:
         # Tek chunk, normal segmentasyon
-        from llm.tools.gemini_segment import segment_text
         return segment_text(text, api_key=api_key)
     
     print(f" Metin {len(chunks)} chunk'a bölündü (her chunk ~{MAX_CHUNK_SIZE:,} karakter)")

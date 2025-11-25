@@ -260,6 +260,15 @@ def validate_segmentation_result(sections: list, original_text: str) -> dict:
                     f"{overlap} chars ({overlap_ratio:.1%})"
                 )
     
+    try:
+        from fix_segmentation import summarize_rubric_coverage
+        coverage = summarize_rubric_coverage(sections)
+        for rubric_id, present in coverage.items():
+            if not present:
+                warnings.append(f"Rubric criterion {rubric_id} missing (no matching section detected)")
+    except Exception:
+        warnings.append("Rubric coverage summary failed")
+
     return {
         'valid': len(errors) == 0,
         'errors': errors,
@@ -321,8 +330,9 @@ def merge_segmentations(chunk_results: list, original_text: str) -> dict:
         fix_seg_path = Path(__file__).parent / "fix_segmentation.py"
         if fix_seg_path.exists():
             sys.path.insert(0, str(Path(__file__).parent))
-            from fix_segmentation import fix_missing_parents
+            from fix_segmentation import fix_missing_parents, apply_rubric_hierarchy_fixes
             unique_sections = fix_missing_parents(unique_sections)
+            unique_sections = apply_rubric_hierarchy_fixes(unique_sections)
         else:
             raise ImportError("fix_segmentation.py not found")
     except (ImportError, Exception):

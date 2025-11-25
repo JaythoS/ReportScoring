@@ -75,6 +75,7 @@ def find_cover_segment(segmentation_json: Dict) -> Optional[Dict]:
 def find_executive_summary_segment(segmentation_json: Dict) -> Optional[Dict]:
     """
     Segmentasyon JSON'dan Executive Summary segmentini bul.
+    Rubrik B1 kriteri için Executive Summary bölümünü arar.
     
     Args:
         segmentation_json: Segmentasyon JSON dict'i
@@ -87,17 +88,28 @@ def find_executive_summary_segment(segmentation_json: Dict) -> Optional[Dict]:
     if not sections:
         return None
     
-    # Executive Summary'yi ara
+    # Öncelik 1: section_id'de executive_summary geçen ve level 1 olan
+    for section in sections:
+        section_id = (section.get("section_id", "") or "").lower()
+        if "executive_summary" in section_id and section.get("level") == 1:
+            return section
+    
+    # Öncelik 2: section_name'de "executive summary" geçen ve level 1 olan
     for section in sections:
         section_name = (section.get("section_name", "") or "").lower()
-        section_id = (section.get("section_id", "") or "").lower()
-        
-        # section_id'de executive_summary geçiyorsa
-        if "executive_summary" in section_id or "executive" in section_id:
-            return section
-        
-        # section_name'de executive summary geçiyorsa
         if "executive summary" in section_name and section.get("level") == 1:
+            return section
+    
+    # Öncelik 3: section_id'de "executive" geçen (executive_summary_1, executive_1, vb.)
+    for section in sections:
+        section_id = (section.get("section_id", "") or "").lower()
+        if "executive" in section_id and section.get("level") == 1:
+            return section
+    
+    # Öncelik 4: section_name'de "executive" geçen (farklı dillerde olabilir)
+    for section in sections:
+        section_name = (section.get("section_name", "") or "").lower()
+        if "executive" in section_name and section.get("level") == 1:
             return section
     
     return None

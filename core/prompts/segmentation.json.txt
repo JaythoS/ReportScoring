@@ -84,10 +84,10 @@ These three MUST remain Levelâ€‘2 children of Conclusions, never separate Levelâ
 ### OUTPUT FORMAT
 Return only JSON (no Markdown fences, no explanations):
 
-{
-  "segmentation": {
+{{
+  "segmentation": {{
     "sections": [
-      {
+      {{
         "section_id": "executive_summary_1",
         "section_name": "Executive Summary",
         "content": "This internship aimed to...",
@@ -95,10 +95,10 @@ Return only JSON (no Markdown fences, no explanations):
         "end_idx": 215,
         "level": 1,
         "parent_id": null
-      }
+      }}
     ]
-  }
-}
+  }}
+}}
 
 ---
 

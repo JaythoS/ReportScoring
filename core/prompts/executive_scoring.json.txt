@@ -7,13 +7,18 @@ You are a rubric-aligned evaluator for the **Executive Summary (B1, weight 6%)**
 - Expectations vs outcomes
 - What was learned
 
-**Performance Levels (select ONLY one of these values):**
-- **0 (Unacceptable):** Missing most key elements; reader cannot tell what was done or learned. Only instruction text or incorrect content.
-- **20 (Poor):** Very generic; mentions company or tasks briefly; expectations/outcomes/learning absent or unclear. Company or activities barely defined.
-- **40 (Novice):** Some elements present (e.g., company + tasks) but descriptive and vague; expectations vs outcomes or learning reduced to clichés. Weak connection between expectations and results.
-- **60 (Developing):** Most elements present, some specific details; expectations vs outcomes and learning mentioned but not strongly synthesized. Some company/activity-specific details but limited synthesis.
-- **80 (Competent):** All elements, concise and specific; clear picture of company activities, student role, and learning. Expectations/outcomes and learning are balanced.
-- **100 (Proficient):** As 80, but sharply focused and engaging; expectations/outcomes and learning integrated into a coherent "story". Insightful and company/activity-specific; motivates reader to continue.
+**Performance Levels (select ONLY one of these values - BE STRICT):**
+- **0 (Unacceptable):** Missing most key elements; reader cannot tell what was done or learned. Only instruction text or incorrect content. Content is essentially empty or nonsensical.
+
+- **20 (Poor):** VERY GENERIC and BRIEF. Only 1-2 elements mentioned superficially. Company name mentioned but no engineering activities described. Tasks listed as a simple list without context. Expectations/outcomes/learning are ABSENT or extremely unclear (e.g., "I learned a lot"). Text is very short (<150 words) or entirely generic statements that could apply to any company. Evidence specificity = 0.
+
+- **40 (Novice):** Some elements present (2-3 out of 4) but ALL are vague and generic. Company mentioned but engineering activities described in generic terms (e.g., "they make products"). Tasks listed but no specific tools/projects. Expectations vs outcomes mentioned but as clichés ("I expected to learn, and I did"). Learning points are generic ("I improved my skills"). Weak or no connection between expectations and results. Evidence specificity = 0 or 1.
+
+- **60 (Developing):** Most elements present (3-4 out of 4) with SOME specific details. Company engineering activities have some concrete examples. Tasks include specific tools/projects/technologies. Expectations and outcomes are both mentioned but connection is weak. Learning points are listed but not synthesized. Some company/activity-specific details present but limited synthesis. Evidence specificity = 1.
+
+- **80 (Competent):** ALL 4 elements present, clear and specific. Company engineering activities are well-described with concrete examples. Tasks are detailed with specific tools, projects, and responsibilities. Expectations vs outcomes are clearly compared and connected. Learning points are specific and well-articulated. Good balance between all elements. Evidence specificity = 2.
+
+- **100 (Proficient):** ALL elements present AND integrated into a coherent, engaging narrative. Not just a list - expectations, outcomes, and learning form a "story". Highly specific company/activity details throughout. Insightful connections made. Reader is motivated to continue reading. Evidence specificity = 2. This score is RARE - only for exceptional summaries.
 
 ### Global Kurallar
 1. **Generic metin kanıt sayılmaz:** Eğer içerik yalnızca genel ifadelerden oluşuyorsa (`evidence_specificity = 0`), skor en fazla 40 olabilir.
@@ -53,26 +58,43 @@ Geçerli JSON döndür (başka metin yok):
 - `learning_points_count`: paragrafta adı geçen özgül öğrenme/fayda sayısı (yaklaşık).
 - `length_ok`: metin yaklaşık 1 sayfa/≥150 kelimeyse true.
 
-### Evaluation Steps
+### Evaluation Steps (FOLLOW STRICTLY)
 1. **Check for invalid content:** If you see instruction text, repeated rubric copies, or clearly incorrect content → `score = 0` and `evidence_specificity = 0`.
-2. **Check all key elements:** Verify presence of:
-   - Company's main engineering activities
-   - Major internship activities
-   - Expectations vs outcomes
-   - What was learned
-   - If any are missing, note in rationale.
-3. **Assess specificity:** Count company/activity-specific examples vs generic statements. This determines `evidence_specificity`:
-   - 0 = entirely generic (could be written without visiting the company)
-   - 1 = some company/activity examples present
-   - 2 = clear company/activity-specific evidence
-4. **Select score using ONLY defined values (0, 20, 40, 60, 80, 100):**
-   - **0:** Missing most key elements or invalid content
-   - **20:** Very generic, brief mentions, expectations/outcomes/learning unclear
-   - **40:** Some elements present but vague, clichéd expectations/outcomes/learning
-   - **60:** Most elements present with some specific details, but weak synthesis
-   - **80:** All elements clear and specific, balanced expectations/outcomes/learning
-   - **100:** All elements integrated into coherent, engaging narrative
-5. **Apply global rule:** If `evidence_specificity = 0` (entirely generic), maximum score is 40.
+
+2. **Count key elements present (0-4):**
+   - Company's main engineering activities: Is it described? (Yes/No)
+   - Major internship activities: Are specific tasks/tools/projects mentioned? (Yes/No)
+   - Expectations vs outcomes: Are both mentioned AND compared? (Yes/No)
+   - What was learned: Are specific learning points listed? (Yes/No)
+   
+   **Scoring based on element count:**
+   - 0-1 elements → Score ≤ 20
+   - 2 elements → Score ≤ 40
+   - 3 elements → Score ≤ 60
+   - 4 elements → Score can be 60-100 (depending on quality)
+
+3. **Assess specificity (CRITICAL):** Count company/activity-specific examples vs generic statements:
+   - **0 (entirely generic):** Could be written without visiting the company. No specific company names, products, tools, or projects. Only generic statements like "I worked on projects", "I learned skills", "The company makes products". → **MAXIMUM SCORE = 40**
+   - **1 (some examples):** Some company/activity examples present (e.g., company name, specific department, one tool name) but still mostly generic. → **MAXIMUM SCORE = 60**
+   - **2 (clear evidence):** Clear company/activity-specific evidence throughout (specific company, products, tools, projects, technologies). → **CAN REACH 80-100**
+
+4. **Check length and depth:**
+   - <150 words → Likely missing elements → Consider lower scores (20-40)
+   - 150-250 words → Check if all elements are present
+   - >250 words → Check for quality, not just length
+
+5. **Select score using ONLY defined values (0, 20, 40, 60, 80, 100) - BE CONSERVATIVE:**
+   - Start with element count (step 2)
+   - Apply specificity limit (step 3)
+   - Then assess quality within that range
+   - **Default to lower score if uncertain** - it's better to be slightly strict than lenient
+
+6. **Final check:** 
+   - If `evidence_specificity = 0` → Maximum score is 40 (even if 4 elements present)
+   - If only 1-2 elements present → Maximum score is 40
+   - If 3 elements present but all generic → Maximum score is 40
+   - If 4 elements present with specificity = 1 → Score can be 60
+   - If 4 elements present with specificity = 2 → Score can be 80-100
 
 ### Değerlendirilecek Metin
 Section: {SECTION_NAME}

@@ -24,13 +24,11 @@ from core.scoring import find_executive_summary_segment, score_executive_summary
 def print_executive_score_details(score_result: dict):
     """Executive Summary skorlama detaylarını yazdır"""
     print(f" Skorlama tamamlandı!")
-    print(f"    Toplam Puan: {score_result.get('score', 0.0):.2f}/10")
+    print(f"    Toplam Puan: {score_result.get('score', 0)}/5")
+    if 'rubric_score' in score_result:
+        print(f"    Rubrik Puanı: {score_result.get('rubric_score', 0)}/100")
     criteria = score_result.get('criteria', {})
-    print(f"   - Ana Mühendislik Faaliyetleri: {criteria.get('main_engineering_activities', 0.0):.2f}/10")
-    print(f"   - Ana Staj Faaliyetleri: {criteria.get('major_internship_activities', 0.0):.2f}/10")
-    print(f"   - Beklentiler ve Sonuçlar: {criteria.get('expectations_and_outcomes', 0.0):.2f}/10")
-    print(f"   - Öğrenilenler ve Faydalar: {criteria.get('learning_and_benefits', 0.0):.2f}/10")
-    print(f"   - Okuyucu İlgisi: {criteria.get('reader_engagement', 0.0):.2f}/10")
+    print(f"   - Executive Summary (B1): {criteria.get('executive_summary_b1', 0)}/5")
     print()
 
 

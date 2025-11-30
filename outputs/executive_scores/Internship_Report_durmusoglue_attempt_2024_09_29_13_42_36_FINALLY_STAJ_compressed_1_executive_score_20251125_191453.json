@@ -1,0 +1,19 @@
+{
+  "pdf_file": "Internship Report_durmusoglue_attempt_2024-09-29-13-42-36_FINALLY STAJ_compressed (1).pdf",
+  "segmentation_file": "Internship_Report_durmusoglue_attempt_2024_09_29_13_42_36_FINALLY_STAJ_compressed_1_manual_20251125_191453.json",
+  "segment": {
+    "section_id": "executive_summary_1",
+    "section_name": "Executive Summary",
+    "content": "IndustrialengineersmostlystaffedtheBambiSleepfactorywhereIdidmyinternship.Each\ndepartmenthaddifferentengineersandmanagerswhowereexpertsintheirfields.The",
+    "level": 1,
+    "parent_id": null
+  },
+  "score": {
+    "total_score": 1,
+    "criteria": {
+      "executive_summary_b1": 1
+    },
+    "feedback": "Özet çok kısa ve genel. Şirketin ana mühendislik faaliyetlerinden veya stajyerin yaptığı işlerden bahsedilmiyor. Beklentiler ve sonuçlar ile öğrenilenler hakkında hiçbir bilgi yok. Sadece şirkette endüstri mühendislerinin çalıştığı belirtilmiş."
+  },
+  "timestamp": "2025-11-25T19:14:53.498208"
+}

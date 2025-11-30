@@ -1,0 +1,19 @@
+{
+  "pdf_file": "Internship Report_uretmene_attempt_2024-09-30-13-29-32_IE200 Internship Report.docx",
+  "segmentation_file": "Internship_Report_uretmene_attempt_2024_09_30_13_29_32_IE200_Internship_Report_manual_20251125_185810.json",
+  "segment": {
+    "section_id": "executive_summary_1",
+    "section_name": "Executive Summary",
+    "content": "First of all, I would like to talk about the company I work for. During my management internship in the Turkey office of a US-based company, I had the opportunity to closely observe the functioning of many different departments. I met engineers or graduates from various departments in the office and even had the opportunity to do many jobs with their help.\n\nIn this operation, which exports to more than 60 countries in the food sector and where a large part of the production process is carried out from the Turkey office,\nI gained much more experience than I thought before starting my management internship in the sales department. The sales department is of great importance to many companies. When a company launches a new product, it aims to increase the capacity of its sales force immediately in order to gain customers as quickly as possible. (Doe, 2023). For this reason, they make large investments in the sales department. If I were to mention a few of the jobs I did in the sales department,\nPricing studies using Excel, preparation of monthly sales reports, order tracking, information exchange with relevant departments to prevent disruptions in the production process, the workflow diagram-organization chart we prepared during my internship and the meetings I attended...\nOn the other hand, I attended a fair during my internship and had the chance to observe other leading companies and competitors in the relevant sector. As a result, during this process, I tried to develop my cost-profit analysis skills, project management, effective communication skills, various sales techniques and Excel skills during my management internship in the sales department.",
+    "level": 1,
+    "parent_id": null
+  },
+  "score": {
+    "total_score": 3,
+    "criteria": {
+      "executive_summary_b1": 3
+    },
+    "feedback": "Özet, şirketin faaliyetleri, stajyerin görevleri, beklentiler ve sonuçlar ile öğrenilenler gibi temel unsurların çoğunu içeriyor. Ancak, beklentiler ve sonuçlar arasındaki bağlantı zayıf ve öğrenilenler genel ifadelerle sınırlı. Şirket ve aktiviteler hakkında bazı spesifik detaylar mevcut olsa da, sentez yetersiz. Raporun geri kalanını okumak için güçlü bir motivasyon oluşturmuyor."
+  },
+  "timestamp": "2025-11-25T18:58:10.379547"
+}

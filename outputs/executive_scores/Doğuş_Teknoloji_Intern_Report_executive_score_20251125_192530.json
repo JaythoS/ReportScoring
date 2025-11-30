@@ -1,0 +1,19 @@
+{
+  "pdf_file": "Doğuş Teknoloji Intern Report .pdf",
+  "segmentation_file": "Doğuş_Teknoloji_Intern_Report_manual_20251125_192530.json",
+  "segment": {
+    "section_id": "executive_summary_1",
+    "section_name": "Executive Summary",
+    "content": "Dogus Teknoloji is the technology company at the core of Dogus Group’s digital\ntransformation strategy. Its main mission is to digitalize the business processes of group\ncompanies, increase efficiency, and provide centralized management of all operations\nthrough modern software solutions. One of the company’s largest initiatives in this direction\nis the Turkuaz Project.\nThe Turkuaz Project integrates various business domains such as vehicles, spare parts,\nprocurement, customer relations, import–export, training, and finance under a single\ncorporate software platform. Its primary goal is to unify different units, digitalize workflows\nend-to-end, and enhance transparency and efficiency across the organization.\nDuring my internship, my primary area of work was in the Finance Module, which includes\ncore capabilities, such as invoice handling, payments and collections, exchange rate\nvariances, integration to accounting, additional budget requests, approval workflows, and\nreporting. In joining the Finance team, I was involved in software development, debugging,\ntesting, and module integration.\nThrough trainings at Turkuaz Academy, I had gained knowledge on the architecture of the\nproject, database schema design, and coding standard in good detail. I practiced Agile/Scrum\npractices such as daily stand-ups, sprint planning, and retrospectives from which I had gained\nknowledge on how large projects are organized and executed. I also gained hands-on\nknowledge on tools like Visual Studio, Git Extensions, and MS SQL Management Studio.\nThe internship provided me with technical expertise in debugging and SQL stored procedures\nand clean code principles (SOLID Principles) and service-oriented architecture (SOA). The\nexperience provided me with essential knowledge about working with teams and effective\ncommunication while handling real-world responsibilities in a commercial software\ndevelopment project.\nThe internship at Dogus Teknoloji provided me with technical knowledge while teaching me\nprofessional responsibility and team collaboration and showing me how financial operations\ntransform into digital systems within corporate structures.\n2",
+    "level": 1,
+    "parent_id": null
+  },
+  "score": {
+    "total_score": 4,
+    "criteria": {
+      "executive_summary_b1": 4
+    },
+    "feedback": "Özet bölümü, şirketin mühendislik faaliyetlerini, stajyerin görevlerini, beklentileri ve sonuçları ile öğrenilenleri açıkça belirtiyor. Şirket ve proje hakkında somut detaylar sunulmuş (Turkuaz Projesi, Finans Modülü, kullanılan araçlar). Beklentiler ve sonuçlar karşılaştırılmış, öğrenilenler özel olarak belirtilmiş. Bu nedenle puan 80 olarak belirlendi."
+  },
+  "timestamp": "2025-11-25T19:25:30.656406"
+}

@@ -7,6 +7,7 @@ Rubrik kriterlerine göre puanlama yapar.
 import os
 import json
 import csv
+import math
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Optional, Tuple
@@ -210,18 +211,43 @@ def score_cover_segment(segment: Dict, api_key: str = None) -> Dict:
         
     Returns:
         {
-            "score": float,  # Toplam puan (0-10)
+            "score": int,  # Toplam puan (0-5, küsürat aşağı yuvarlanır)
             "feedback": str,  # Detaylı geri bildirim
             "criteria": {
-                "title_accuracy": float,  # Başlık doğruluğu (0-10)
-                "format": float,          # Biçim (0-10)
-                "completeness": float,    # Bilgi tamlığı (0-10)
-                "date_name_presence": float  # Tarih/isim varlığı (0-10)
+                "title_accuracy": int,  # Başlık doğruluğu (0-5)
+                "format": int,          # Biçim (0-5)
+                "completeness": int,    # Bilgi tamlığı (0-5)
+                "date_name_presence": int  # Tarih/isim varlığı (0-5)
             }
         }
     """
     prompt_template = load_cover_prompt()
-    return _call_llm_for_scoring(prompt_template, segment, api_key)
+    raw_result = _call_llm_for_scoring(prompt_template, segment, api_key)
+    
+    # Cover scoring 0-10 üzerinden geliyor, 5 üzerinden sisteme çevir (küsürat aşağı yuvarlanır)
+    score_0_10 = float(raw_result.get("score", 0.0))
+    score_0_5 = math.floor(score_0_10 / 2.0)
+    
+    # Criteria'ları da 5 üzerinden sisteme çevir
+    criteria = raw_result.get("criteria", {})
+    criteria_0_5 = {}
+    for key, value in criteria.items():
+        if isinstance(value, (int, float)):
+            criteria_0_5[key] = math.floor(float(value) / 2.0)
+        else:
+            criteria_0_5[key] = value
+    
+    result = {
+        "score": score_0_5,
+        "feedback": raw_result.get("feedback", ""),
+        "criteria": criteria_0_5
+    }
+    
+    # Orijinal değerleri de sakla (geri uyumluluk için)
+    result["score_0_10"] = score_0_10
+    result["criteria_0_10"] = criteria
+    
+    return result
 
 
 def score_executive_summary(segment: Dict, api_key: str = None) -> Dict:
@@ -234,12 +260,13 @@ def score_executive_summary(segment: Dict, api_key: str = None) -> Dict:
         
     Returns:
         {
-            "score": int,  # Rubrik seviyesi (0,20,...,100)
+            "score": int,  # 5 üzerinden puan (0-5, küsürat aşağı yuvarlanır)
+            "rubric_score": int,  # Rubrik seviyesi (0,20,...,100)
             "rationale": str,
             "evidence_specificity": int,
             "fine": {...},
             "criteria": {
-                "executive_summary_b1": int
+                "executive_summary_b1": int  # 5 üzerinden puan
             }
         }
     """
@@ -247,21 +274,22 @@ def score_executive_summary(segment: Dict, api_key: str = None) -> Dict:
     raw_result = _call_llm_for_scoring(prompt_template, segment, api_key)
     
     rubric_score = int(raw_result.get("score", 0))
-    score_0_10 = rubric_score / 10.0
+    # Rubrik puanını (0-100) 5 üzerinden puanlama sistemine çevir
+    # 0→0, 20→1, 40→2, 60→3, 80→4, 100→5
+    score_0_5 = rubric_score // 20
     rationale = raw_result.get("rationale", "")
     fine = raw_result.get("fine", {})
     evidence_specificity = raw_result.get("evidence_specificity")
     
-    # Eski çağıranlar için geri uyumluluk: criteria dict'i tek değerle doldur
     result = {
-        "score": score_0_10,
+        "score": score_0_5,
         "rubric_score": rubric_score,
         "rationale": rationale,
         "fine": fine,
         "evidence_specificity": evidence_specificity,
         "feedback": rationale,
         "criteria": {
-            "executive_summary_b1": score_0_10
+            "executive_summary_b1": score_0_5
         }
     }
     return result
@@ -343,11 +371,11 @@ def test_multiple_reports(segmentation_files: List[Path], output_csv: Path = Non
             
             results.append(result)
             
-            print(f"   Toplam Puan: {result['total_score']:.2f}/10")
-            print(f"     - Başlık Doğruluğu: {result['title_accuracy']:.2f}/10")
-            print(f"     - Biçim: {result['format']:.2f}/10")
-            print(f"     - Bilgi Tamlığı: {result['completeness']:.2f}/10")
-            print(f"     - Tarih/İsim Varlığı: {result['date_name_presence']:.2f}/10")
+            print(f"   Toplam Puan: {result['total_score']}/5")
+            print(f"     - Başlık Doğruluğu: {result['title_accuracy']}/5")
+            print(f"     - Biçim: {result['format']}/5")
+            print(f"     - Bilgi Tamlığı: {result['completeness']}/5")
+            print(f"     - Tarih/İsim Varlığı: {result['date_name_presence']}/5")
             
         except Exception as e:
             print(f"   Hata: {e}")
@@ -408,7 +436,7 @@ def test_multiple_reports(segmentation_files: List[Path], output_csv: Path = Non
                 if isinstance(r.get("total_score"), str):
                     r["total_score"] = float(r["total_score"])
             avg_score = sum(r["total_score"] for r in valid_results) / len(valid_results)
-            print(f"\n Ortalama Toplam Puan: {avg_score:.2f}/10")
+            print(f"\n Ortalama Toplam Puan: {avg_score:.2f}/5")
             print(f"   Test edilen dosya sayısı: {len(valid_results)}")
     
     return results

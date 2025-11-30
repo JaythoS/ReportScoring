@@ -1,0 +1,19 @@
+{
+  "pdf_file": "Internship Report_kocakh_attempt_2024-09-29-23-14-52_IE200_Harun_Koçak.docx",
+  "segmentation_file": "Internship_Report_kocakh_attempt_2024_09_29_23_14_52_IE200_Harun_Koçak_manual_20251125_182901.json",
+  "segment": {
+    "section_id": "executive_summary_1",
+    "section_name": "Executive Summary",
+    "content": "alBaraka Tech is a technology and software company exclusively working for banking sector and their own banks. Their main activities are writing codes for the customer that using the bank website and phone apps, beside these making background upgrades for to obstruct any website crash and also detail pages for bank workers about customers.\n\n     In my internship, I worked with Customer Relationship Management and Marketing department. I worked with the team for some projects that they had started working before I started to work there. In these projects I help to team for preparation analysis, testing and developments. While doing these projects, we use User Acceptance Testing (UAT) Universe, Pre-Prod Universe and Prod Universes. They gave me tasks about finding and testing mistakes and prepare some analyse documentations about projects. Because of there is no chance to make mistakes in code universes, I didn’t work my own in that part of the project. Also, I learned how should the relation between the company and the customer be? While being a bridge between company and customer, it is necessary to always keep the relationship with the departments working on that task alive. \n\n     Before my internship, I wonder how is work environment in a big company. Working on a small team within a big company, I learned what it was like to be a cog in the wheel. I learned a lot of things about project management, teamwork, and what are expectations bosses from employees. This internship experience has deepened my knowledge about business and technical things about engineering.",
+    "level": 1,
+    "parent_id": null
+  },
+  "score": {
+    "total_score": 6.0,
+    "criteria": {
+      "executive_summary_b1": 6.0
+    },
+    "feedback": "Özet, şirketin faaliyetleri, stajyerin görevleri, beklentiler ve sonuçlar, öğrenilenler gibi temel unsurların çoğunu içermektedir. Şirketin mühendislik faaliyetleri ve stajyerin rolü hakkında bazı spesifik detaylar bulunmaktadır. Ancak, beklentiler ve sonuçlar ile öğrenilenler arasındaki sentez zayıf kalmıştır. Metin, bazı şirket/aktivite özel detaylar sunsa da, daha güçlü bir sentez ve daha fazla spesifik örnekle daha yüksek bir puan alabilirdi."
+  },
+  "timestamp": "2025-11-25T18:29:01.441869"
+}

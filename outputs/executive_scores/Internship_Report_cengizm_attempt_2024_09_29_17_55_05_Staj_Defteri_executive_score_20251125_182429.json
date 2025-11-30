@@ -1,0 +1,19 @@
+{
+  "pdf_file": "Internship Report_cengizm_attempt_2024-09-29-17-55-05_Staj Defteri.docx",
+  "segmentation_file": "Internship_Report_cengizm_attempt_2024_09_29_17_55_05_Staj_Defteri_manual_20251125_182429.json",
+  "segment": {
+    "section_id": "executive_summary_1",
+    "section_name": "Executive Summary",
+    "content": "Main engineering aims of Yasin Tekstil are optimizing the production process and make the best quality textile products. Yasin Tekstil uses machines which are top quality and modern and the main goal of engineers is get the most efficiency from this machine for the benefit of the firm. Another aim of the engineers is reducing the costs and increasing efficiency. Also, engineers of Yasin Tekstil try to use environmentally friendly energy systems. \n\n\tDuring my internship at Yasin Tekstil my main duty was checking and controlling the production process. I take care of almost every process. Yasin Tekstil is a textile company, so we worked on fall creations of famous brands. So, our main work was preparing these fall and winter creations.\n\nMy expectations from this internship were to see the process in a textile production workshop from an engineer's perspective, to evaluate what could be done to improve this process, and to think about what could be done to make production more convenient and effective.\n\t\n\tAt the end of my internship, I can say that my summer internship at Yasin Tekstil largely met my expectations. As I expected, I took part in all stages of production in a Textile Manufacturing Company, and we did nice and useful work with other engineers who were my teammates to increase the quality of this process.\n\n\tMy internship experience at Yasin Tekstil contributed a lot to me. The teamwork I did with other engineers, personally experiencing the subjects I learned at school in the field, working with other blue-collar workers to improve processes were very useful for me. I had the opportunity to learn by using the machines I heard about in class, the meetings I had with my other colleagues and the communication I established with customers are the most important things I learned during my internship.",
+    "level": 1,
+    "parent_id": null
+  },
+  "score": {
+    "total_score": 6.0,
+    "criteria": {
+      "executive_summary_b1": 6.0
+    },
+    "feedback": "Özet, şirketin faaliyetleri, stajyerin görevleri, beklentiler ve sonuçlar ile öğrenilenler gibi temel unsurların çoğunu içermektedir. Ancak, beklentiler ve sonuçlar arasındaki bağlantı zayıf kalmakta ve öğrenilenler genel ifadelerden oluşmaktadır. Şirket ve aktivite özelinde bazı detaylar bulunmaktadır, fakat sentez sınırlıdır. Bu nedenle puan 60 olarak belirlenmiştir."
+  },
+  "timestamp": "2025-11-25T18:24:29.038711"
+}

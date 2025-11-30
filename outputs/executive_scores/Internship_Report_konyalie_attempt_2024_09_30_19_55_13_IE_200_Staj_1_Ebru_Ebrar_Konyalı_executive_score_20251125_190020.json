@@ -1,0 +1,19 @@
+{
+  "pdf_file": "Internship Report_konyalie_attempt_2024-09-30-19-55-13_IE 200 Staj 1_Ebru Ebrar Konyalı.pdf",
+  "segmentation_file": "Internship_Report_konyalie_attempt_2024_09_30_19_55_13_IE_200_Staj_1_Ebru_Ebrar_Konyalı_manual_20251125_190020.json",
+  "segment": {
+    "section_id": "executive_summary_1",
+    "section_name": "Executive Summary",
+    "content": "Ekol Logistics is a global logistics company, founded by Ahmet Musul in\n1990, and currently operates in 12 countries. Ekol embraces a multicultural workforce\nwith employees from 23 different nationalities and is recognized for its innovative\napproach, closely following technological advancements through automation in its\noperations. During my internship at Ekol, I had the opportunity to work in the\nMethods Engineering department, where I gained significant experience in enhancing\nthe efficiency of logistics operations. The focus of my internship was to measure and\nanalyze operational efficiency and productivity through time studies, layout planning,\nand process optimization, aiming to identify methods to improve productivity based\non the analysis results.\nThroughout the one-month period, I collaborated with the Operational\nExcellence department and contributed to various professional projects. This\ncollaboration helped me understand how interconnected logistics processes are and\nhow they collectively contribute to overall operational efficiency. During my\ninternship, I observed processes such as warehouse operations, goods receipt, picking,\npacking, and shipping. I collected process measurements, which I later analyzed\nunder specific categories. I utilized tools like Visio to design layouts and attempted to\noptimize existing workflows. Additionally, I participated in the Pallet Routing\nProject, which significantly increased the efficiency of the shipping process. As a\nresult of this project, efficiency in Operation B improved by 313%.\nDuring my internship, I had the opportunity to apply theoretical knowledge to\nreal-world logistics challenges. I enhanced my competencies in process measurement\nand analysis, teamwork, process improvement, and operations and facility design.\nThrough weekly meetings, I closely monitored progress and participated in data-\ndriven decision-making processes aimed at improving operational performance.\nFurthermore, I built a professional network, establishing important connections for\nmy future career.\n2\nBu doküman Genel olarak sınıflandırılmıştır. This document is classified as Public.",
+    "level": 1,
+    "parent_id": null
+  },
+  "score": {
+    "total_score": 3,
+    "criteria": {
+      "executive_summary_b1": 3
+    },
+    "feedback": "Özet, şirketin faaliyetlerini, stajyerin görevlerini ve öğrenilenleri belirtiyor. Beklentiler ve sonuçlar hakkında bilgi mevcut ancak sentez zayıf. Şirket ve aktiviteye özgü bazı detaylar var, ancak daha fazla sentezleme yapılabilirdi. Verimlilik artışı gibi spesifik sonuçlar belirtilmiş."
+  },
+  "timestamp": "2025-11-25T19:00:20.871051"
+}

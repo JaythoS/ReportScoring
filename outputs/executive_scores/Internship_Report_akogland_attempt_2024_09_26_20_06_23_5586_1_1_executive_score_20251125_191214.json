@@ -1,0 +1,19 @@
+{
+  "pdf_file": "Internship Report_akogland_attempt_2024-09-26-20-06-23_5586_1 (1).pdf",
+  "segmentation_file": "Internship_Report_akogland_attempt_2024_09_26_20_06_23_5586_1_1_manual_20251125_191214.json",
+  "segment": {
+    "section_id": "executive_summary_1",
+    "section_name": "Executive Summary",
+    "content": "One-page executive summary including:\n Brief information on the main engineering activities of the company;\n Explanation of major internship activities you carried out: highlight the type of work\nyou have done, and the project/work that you were engaged in during your internship;\n Summary of your expectations from the internship and the actual outcomes of it;\n Brief statement of what you have learned and benefited from your experience.\nFormat: Calibri, 11pt, Single space\nOzan Electronics is a leading company in the field of financial technologies, focusing on\npayment systems, data analytics, software development, and financial solutions. The",
+    "level": 1,
+    "parent_id": null
+  },
+  "score": {
+    "total_score": 1,
+    "criteria": {
+      "executive_summary_b1": 1
+    },
+    "feedback": "Özet bölümü çok kısa ve yetersiz. Sadece şirket hakkında genel bir bilgi verilmiş, ancak mühendislik faaliyetleri, staj aktiviteleri, beklentiler/sonuçlar ve öğrenilenler hakkında hiçbir detay bulunmamaktadır. Metin çok genel ve yüzeyseldir."
+  },
+  "timestamp": "2025-11-25T19:12:14.837356"
+}

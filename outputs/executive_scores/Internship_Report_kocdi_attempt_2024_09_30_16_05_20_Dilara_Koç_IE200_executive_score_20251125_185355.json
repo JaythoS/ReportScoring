@@ -1,0 +1,19 @@
+{
+  "pdf_file": "Internship Report_kocdi_attempt_2024-09-30-16-05-20_Dilara Koç IE200.pdf",
+  "segmentation_file": "Internship_Report_kocdi_attempt_2024_09_30_16_05_20_Dilara_Koç_IE200_manual_20251125_185355.json",
+  "segment": {
+    "section_id": "executive_summary_1",
+    "section_name": "Executive Summary",
+    "content": "FLO Group is one of Turkey's leading shoe and accessory manufacturers and a global brand\nwith a wide range of products. The company carries out innovation projects aimed at\nproduct development, production process optimization, supply chain management and\ncustomer experience enhancement within the scope of its engineering activities. It is aimed\nto continuously improve the processes by using technology and data analytics in order to\nprovide solutions suitable for customer needs.\nDuring my internship, I worked as an intern in the marketing department of FLO Group. My\nmain activities included conducting market research, creating competitor analysis reports\nand developing performance marketing strategies. In particular, I carried out studies on\ncustomer segmentation and needs analysis. In addition, I evaluated the impact of marketing\nstrategies using data analysis and examined the background of successful projects. During\nmy internship, I had the opportunity to develop my teamwork and communication skills.\nBefore my internship, I expected to gain practical experience in engineering applications and\nsales-marketing processes. The realized results exceeded my expectations; I had the chance\nto contribute to real-life projects by experiencing team dynamics and collaboration. This\nprocess helped me improve myself in both engineering and marketing.\nDuring my internship, I learned the importance of data analysis, customer-centric thinking,\nand effective communication skills. I also realized how critical team collaboration and\neffective communication in projects are to success. This experience provided an important\nfoundation for me to become a more well-rounded professional in engineering and\nmarketing. What I learned will guide me in my future career and professional development.\n2",
+    "level": 1,
+    "parent_id": null
+  },
+  "score": {
+    "total_score": 3,
+    "criteria": {
+      "executive_summary_b1": 3
+    },
+    "feedback": "Özet bölümü şirketin faaliyetlerini, stajyerin görevlerini, beklentileri ve sonuçları ile öğrenilenleri içermektedir. Şirket ve staj faaliyetleri hakkında bazı spesifik detaylar bulunmaktadır (pazar araştırması, müşteri segmentasyonu vb.). Ancak, beklentiler ve sonuçlar arasındaki sentez zayıf kalmaktadır. Öğrenilenler de belirtilmiş ancak daha derinlemesine bir analiz yapılmamıştır. Bu nedenle puan 60 olarak belirlenmiştir."
+  },
+  "timestamp": "2025-11-25T18:53:55.868425"
+}

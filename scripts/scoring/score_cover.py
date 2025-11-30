@@ -24,12 +24,12 @@ from core.scoring import find_cover_segment, score_cover_segment
 def print_cover_score_details(score_result: dict):
     """Cover skorlama detaylarını yazdır"""
     print(f" Skorlama tamamlandı!")
-    print(f"    Toplam Puan: {score_result.get('score', 0.0):.2f}/10")
+    print(f"    Toplam Puan: {score_result.get('score', 0)}/5")
     criteria = score_result.get('criteria', {})
-    print(f"   - Başlık Doğruluğu: {criteria.get('title_accuracy', 0.0):.2f}/10")
-    print(f"   - Biçim: {criteria.get('format', 0.0):.2f}/10")
-    print(f"   - Bilgi Tamlığı: {criteria.get('completeness', 0.0):.2f}/10")
-    print(f"   - Tarih/İsim Varlığı: {criteria.get('date_name_presence', 0.0):.2f}/10")
+    print(f"   - Başlık Doğruluğu: {criteria.get('title_accuracy', 0)}/5")
+    print(f"   - Biçim: {criteria.get('format', 0)}/5")
+    print(f"   - Bilgi Tamlığı: {criteria.get('completeness', 0)}/5")
+    print(f"   - Tarih/İsim Varlığı: {criteria.get('date_name_presence', 0)}/5")
     print()
 
 

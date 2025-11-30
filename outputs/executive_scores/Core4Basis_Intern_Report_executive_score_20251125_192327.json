@@ -1,0 +1,19 @@
+{
+  "pdf_file": "Core4Basis Intern Report.pdf",
+  "segmentation_file": "Core4Basis_Intern_Report_manual_20251125_192327.json",
+  "segment": {
+    "section_id": "executive_summary_1",
+    "section_name": "Executive Summary",
+    "content": "Core4Basis Technology and Consulting Services is a consulting boutique SAP Basis\nspecialty firm. The company provides SAP system installation, upgrade, performance\noptimization, security, backup, and cloud integration services. Its main goal is to assume\nresponsibility for customers' key infrastructures with best-in-class performance and\nreliability.\nDuring my internship, I was a very active member of the daily business processes of\nthe SAP Basis team. I learned checking the systems with the help of SAP GUI, preparing daily\nand weekly reports, and performing backup controls and dump analyses. I also performed\nuser and authorization procedures. Besides that, I prepared weekly system status reports for\ndifferent clients, which included reading system logs, RFC connections, disk space usage,\nmemory space usage, and other important parameters.\nA significant amount of my internship was devoted to being involved in the SAP\nHANA patching process. Under the guidance of my supervisor, I performed full system\nbackups, downloaded the relevant .SAR files from SAP Support Portal, and uploaded them to\nthe respective directories. I powered down the system safely via SAP MMC and initiated the\nupdate process through the hdblcm tool. I learned that careful planning, backup, and check\nsteps are so critical in system updates.\nMoreover, I was taught SAP service management on the SUSE Linux and Windows\nServer platforms by my supervisor. I learned to use terminal commands (df -h, top, ps -ef,\nstartsap, stopsap) and to work with directories. On the Windows platform, I was trained to\nstart and stop instances using SAP Management Console (SAP MMC) and to effectively\nmanage services.\nBefore the internship, my main goal was to learn more about SAP Basis\ninfrastructure and become familiar with the actual systems. This internship exceeded my\nexpectation. I learned the importance of regular system checks, proper documentation, and\ncollaboration in SAP system maintenance. In addition, I obtained experience which SAP Basis\nrequires as much technical knowledge as taking a high level of responsibility. This internship\nassisted me in achieving technical skills and professional working ethics.\n2",
+    "level": 1,
+    "parent_id": null
+  },
+  "score": {
+    "total_score": 4,
+    "criteria": {
+      "executive_summary_b1": 4
+    },
+    "feedback": "Özet, şirketin mühendislik faaliyetlerini, stajyerin yaptığı işleri (SAP GUI, raporlama, yedekleme, HANA patching), beklentiler ve sonuçları (SAP Basis hakkında bilgi edinme hedefi aşıldı) ve öğrenilenleri (sistem kontrolleri, dökümantasyon, işbirliği) açıkça belirtiyor. Spesifik araçlar (SAP GUI, hdblcm), platformlar (SUSE Linux, Windows Server) ve komutlar (df -h, top, ps -ef) belirtilmiş. Bu, içeriğin şirkete ve aktivitelere özgü olduğunu gösteriyor. Tüm anahtar unsurlar mevcut ve iyi dengelenmiş."
+  },
+  "timestamp": "2025-11-25T19:23:27.818397"
+}

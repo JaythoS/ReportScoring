@@ -1,0 +1,19 @@
+{
+  "pdf_file": "Internship Report_gokcea_attempt_2024-09-30-20-38-44_staj (3).pdf",
+  "segmentation_file": "Internship_Report_gokcea_attempt_2024_09_30_20_38_44_staj_3_manual_20251125_185134.json",
+  "segment": {
+    "section_id": "executive_summary_1",
+    "section_name": "Executive Summary",
+    "content": "During my internship at Aras Kargo, the opportunity was provided to work in the Sales Planning and\nPerformance Management department, which is crucial for optimizing operations and maintaining a\ncompetitive edge in the logistics sector. The internship was approached with the expectation of gaining\npractical experience in process optimization, data analysis, and strategic planning. The reports reviewed and\nprepared, the macro projects developed to enhance process efficiency, and the data analyses conducted all\nsignificantly contributed to achieving these goals.",
+    "level": 1,
+    "parent_id": null
+  },
+  "score": {
+    "total_score": 1,
+    "criteria": {
+      "executive_summary_b1": 1
+    },
+    "feedback": "Özet, şirketi ve staj faaliyetlerini kısaca belirtiyor ancak beklentiler, sonuçlar ve öğrenilenler belirsiz veya eksik. Şirketin mühendislik faaliyetleri hakkında bilgi yok. Metin çok genel ve yüzeysel kalıyor."
+  },
+  "timestamp": "2025-11-25T18:51:34.043997"
+}

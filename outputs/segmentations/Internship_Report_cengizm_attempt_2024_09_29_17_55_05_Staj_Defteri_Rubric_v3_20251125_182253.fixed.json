@@ -1,0 +1,27 @@
+{
+  "segmentation": {
+    "sections": []
+  },
+  "source_metadata": {
+    "total_length": 35315,
+    "extraction_timestamp": "2025-11-25T18:22:53.268230",
+    "chunked": true,
+    "chunk_count": 0,
+    "fixed": true,
+    "fix_timestamp": "2025-11-25T18:22:53.270626",
+    "rubric_coverage": {
+      "B1": false,
+      "B2": false,
+      "B3": false,
+      "B4": false,
+      "B5": false,
+      "B6": false,
+      "B7": false,
+      "B8": false,
+      "B9": false
+    },
+    "warnings": [
+      "Eksik rubrik bölümleri: B1, B2, B3, B4, B5, B6, B7, B8, B9"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "pdf_file": "omerbilbil_comp200_rapor(with_checklist).pdf",
+  "segmentation_file": "omerbilbil_comp200_rapor_with_checklist_manual_20251125_192857.json",
+  "segment": {
+    "section_id": "executive_summary_1",
+    "section_name": "Executive Summary",
+    "content": "During my internship within the DevOps team at the Turkish Technology firm, I gained a\nlot of new information and also enhanced my technical capabilities significantly. Working\non this project gave me the avenue to use contemporary tools and technologies that\nstreamline software development as well as operations and save time. Throughout this\ninternship, I acquired hands-on experience with real practices and learned how companies\nefficiently employ programs and automate their business processes in order to maintain\nthem extremely reliable and operational.\nDocker was one of the main technologies that I learned throughout this internship. I used\nDocker to run applications inside containers. With this, I realized how Docker enables\napplications to run in a deterministic manner across environments, skipping most of the\ncompatibility issues. I also studied Kubernetes, which taught me how to scale and\nmaintain containerized applications in an efficient manner. This taught me about\norchestrating complex systems and how organizations maintain stability by adding more\nworkload.\nAlso, I gained handy experience deploying CI/CD (Continuous Integration and Continuous\nDeployment) pipelines using Jenkins. Through this, I witnessed first-hand how automation\naccelerates software release and minimizes errors in the deployment process. Also, I\ngained experience with OpenShift, an enterprise Kubernetes platform, which further\nadded to my skill set for deploying and maintaining applications on live production\nenvironments. Developing with OpenShift gave me practical knowledge of how enterprises\nhandle live deployments without sacrificing security, reliability, and scalability.\nApart from mastering all these basic DevOps tools, I also learned through a project\ninvolving artificial intelligence. Through the project, I created an AI-based solution that\ncalculates the most appropriate configuration for systems automatically. Through this, my\nsolution was intended to minimize manual effort, eliminate much of the intervention of\nhuman factors, and enhance overall efficiency in operation. This experience further\ncemented my understanding of how AI can be integrated into DevOps operations to\npromote innovation and automation in system maintenance.\nIn addition to gaining experience with several DevOps tools and technologies, this\ninternship greatly improved my problem-solving abilities, adaptability, and understanding\nof DevOps culture. I realized how collaboration, continuous improvement, and automation\nare the pillars of modern software development and operations. Overall, this internship\nwas extremely beneficial to my studies and professional life. The experience and\ntheoretical understanding I have obtained will certainly contribute to my future\nprofessional growth, research work, and technological contributions.\n2",
+    "level": 1,
+    "parent_id": null
+  },
+  "score": {
+    "total_score": 3,
+    "criteria": {
+      "executive_summary_b1": 3
+    },
+    "feedback": "Özet, şirketin mühendislik faaliyetleri hakkında genel bir bilgi sunuyor ve staj sırasında öğrenilen araçları (Docker, Kubernetes, Jenkins, OpenShift) ve AI projesini açıklıyor. Beklentiler ve sonuçlar genel olarak belirtilmiş, ancak aralarındaki bağlantı zayıf. Öğrenilenler listelenmiş ancak sentezlenmemiş. Bazı şirket/aktiviteye özgü detaylar mevcut ancak sınırlı sentez var. Bu nedenle puan 60 olarak belirlendi."
+  },
+  "timestamp": "2025-11-25T19:28:57.332244"
+}

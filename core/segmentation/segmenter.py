@@ -19,7 +19,7 @@ MODEL_NAME = "gemini-2.0-flash"
 def load_prompt() -> str:
     """Segmentation prompt şablonunu yükle"""
     project_root = Path(__file__).resolve().parents[2]
-    prompt_path = project_root / "llm" / "prompts" / "segmentation.json.txt"
+    prompt_path = project_root / "core" / "prompts" / "segmentation.json.txt"
     
     if not prompt_path.exists():
         raise FileNotFoundError(f"Prompt dosyası bulunamadı: {prompt_path}")
